@@ -241,11 +241,20 @@ function simpanData(){
     return;
   }
 
-  localStorage.setItem(
-    "customerEngagementData",
-    JSON.stringify(data)
-  );
+  let daftarData = JSON.parse(
+  localStorage.getItem("customerEngagementData") || "[]"
+);
 
+if (!Array.isArray(daftarData)) {
+  daftarData = [daftarData];
+}
+
+daftarData.push(data);
+
+localStorage.setItem(
+  "customerEngagementData",
+  JSON.stringify(daftarData)
+);
   document.getElementById("hasil").style.display = "block";
 
   document.getElementById("hasilText").innerHTML =
