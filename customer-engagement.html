@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Engagement</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f7f3ff;
+  color:#17324d;
+  min-height:100vh;
+}
+
+.app{
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  background:white;
+}
+
+.header{
+  background:linear-gradient(135deg,#8b6fc7,#b79bea);
+  color:white;
+  padding:28px 22px 30px;
+  border-radius:0 0 28px 28px;
+}
+
+.header small{
+  opacity:.9;
+  font-size:13px;
+}
+
+.header h1{
+  font-size:27px;
+  margin-top:8px;
+}
+
+.header p{
+  margin-top:7px;
+  font-size:14px;
+  opacity:.9;
+}
+
+.content{
+  padding:22px 18px;
+}
+
+.section{
+  margin-bottom:18px;
+}
+
+.section h2{
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd6f0;
+  border-radius:12px;
+  font-size:14px;
+  background:#fff;
+  margin-bottom:12px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.button{
+  width:100%;
+  border:none;
+  padding:14px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:bold;
+  margin-top:5px;
+  cursor:pointer;
+}
+
+.save{
+  background:#8b6fc7;
+  color:white;
+}
+
+.back{
+  background:#eee9fa;
+  color:#17324d;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:18px;
+  padding:15px;
+  background:#f4efff;
+  border-radius:14px;
+  display:none;
+}
+
+.result h3{
+  margin-bottom:8px;
+}
+
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#888;
+  font-size:12px;
+}
+
+.brand{
+  font-weight:bold;
+  color:#8b6fc7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>SMART ASSISTANT</small>
+    <h1>Customer Engagement</h1>
+    <p>Pencatatan aktivitas dan kebutuhan customer</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+      <h2>👤 Data Customer</h2>
+
+      <label>Nama Customer</label>
+      <input id="nama" type="text" placeholder="Masukkan nama customer">
+
+      <label>Nomor Customer</label>
+      <input id="nomor" type="text" placeholder="Masukkan nomor customer">
+
+      <label>Segment Customer</label>
+      <select id="segment">
+        <option value="">Pilih segment</option>
+        <option>Mass</option>
+        <option>Upper Mass</option>
+        <option>Affluent</option>
+        <option>HNWI</option>
+        <option>Debitur</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <h2>📝 Aktivitas Engagement</h2>
+
+      <label>Tanggal</label>
+      <input id="tanggal" type="date">
+
+      <label>Kebutuhan Customer</label>
+      <textarea id="kebutuhan"
+        placeholder="Tuliskan kebutuhan customer"></textarea>
+
+      <label>Solusi / Penawaran</label>
+      <textarea id="solusi"
+        placeholder="Tuliskan solusi atau produk yang ditawarkan"></textarea>
+
+      <label>Status</label>
+      <select id="status">
+        <option>Belum Follow-up</option>
+        <option>Follow-up</option>
+        <option>Berhasil</option>
+        <option>Belum Berhasil</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <h2>📅 Follow-up</h2>
+
+      <label>Tanggal Follow-up</label>
+      <input id="followup" type="date">
+
+      <label>Catatan</label>
+      <textarea id="catatan"
+        placeholder="Tuliskan catatan follow-up"></textarea>
+    </div>
+
+    <button class="button save" onclick="simpanData()">
+      💾 Simpan Data
+    </button>
+
+    <button class="button back" onclick="kembali()">
+      ← Kembali ke Menu Utama
+    </button>
+
+    <div class="result" id="hasil">
+      <h3>✅ Data Berhasil Disimpan</h3>
+      <p id="hasilText"></p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="brand">My Personal Assistant</span><br>
+    Created by Dee
+  </div>
+
+</div>
+
+<script>
+
+function simpanData(){
+
+  const data = {
+    nama: document.getElementById("nama").value,
+    nomor: document.getElementById("nomor").value,
+    segment: document.getElementById("segment").value,
+    tanggal: document.getElementById("tanggal").value,
+    kebutuhan: document.getElementById("kebutuhan").value,
+    solusi: document.getElementById("solusi").value,
+    status: document.getElementById("status").value,
+    followup: document.getElementById("followup").value,
+    catatan: document.getElementById("catatan").value
+  };
+
+  if(data.nama === ""){
+    alert("Nama customer belum diisi.");
+    return;
+  }
+
+  localStorage.setItem(
+    "customerEngagementData",
+    JSON.stringify(data)
+  );
+
+  document.getElementById("hasil").style.display = "block";
+
+  document.getElementById("hasilText").innerHTML =
+    "Customer <b>" + data.nama +
+    "</b> telah dicatat dengan status <b>" +
+    data.status + "</b>.";
+}
+
+function kembali(){
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
