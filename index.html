@@ -4,12 +4,199 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Personal Assistant</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f8ff;
+      color: #17324d;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: auto;
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0066cc, #1689e8);
+      color: white;
+      padding: 28px 22px 30px;
+      border-radius: 0 0 28px 28px;
+    }
+
+    .header small {
+      opacity: 0.9;
+      font-size: 13px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-top: 8px;
+    }
+
+    .header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 22px 18px;
+    }
+
+    .welcome {
+      margin-bottom: 20px;
+    }
+
+    .welcome h2 {
+      font-size: 20px;
+      color: #17324d;
+    }
+
+    .welcome p {
+      margin-top: 5px;
+      color: #718096;
+      font-size: 13px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .menu-item {
+      border: 1px solid #e4edf7;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 18px 14px;
+      min-height: 135px;
+      box-shadow: 0 5px 18px rgba(20, 80, 130, 0.08);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      background: #e8f3ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .menu-item h3 {
+      font-size: 15px;
+      color: #17324d;
+    }
+
+    .menu-item p {
+      margin-top: 5px;
+      font-size: 11px;
+      color: #7a8794;
+      line-height: 1.4;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #8b98a7;
+      font-size: 11px;
+    }
+
+    .brand {
+      color: #0066cc;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>My Personal Assistant</h1>
-  <p>Smart Assistant for Customer Engagement</p>
+  <div class="app">
+
+    <div class="header">
+      <small>SMART ASSISTANT</small>
+      <h1>My Personal Assistant</h1>
+      <p>Smart Assistant for Customer Engagement</p>
+    </div>
+
+    <div class="content">
+
+      <div class="welcome">
+        <h2>Apa yang ingin Anda lakukan?</h2>
+        <p>Pilih menu untuk mulai bekerja.</p>
+      </div>
+
+      <div class="menu">
+
+        <div class="menu-item">
+          <div class="icon">📱</div>
+          <h3>Customer Engagement</h3>
+          <p>Kelola aktivitas engagement customer.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">💬</div>
+          <h3>Chat & Penawaran</h3>
+          <p>Chat dan pencatatan penawaran solusi.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">🎁</div>
+          <h3>Kartu Ucapan</h3>
+          <p>Buat dan kelola kartu ucapan customer.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">🎪</div>
+          <h3>EXPO / Event</h3>
+          <p>Catat aktivitas dan customer dari event.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">📅</div>
+          <h3>Follow-up Customer</h3>
+          <p>Kelola jadwal dan tindak lanjut customer.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">📊</div>
+          <h3>Monitoring & Rekap</h3>
+          <p>Lihat perkembangan dan hasil aktivitas.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">🤖</div>
+          <h3>AI Assistant</h3>
+          <p>Asisten AI untuk membantu pekerjaan.</p>
+        </div>
+
+        <div class="menu-item">
+          <div class="icon">🔔</div>
+          <h3>Pengingat Pekerjaan</h3>
+          <p>Kelola pekerjaan dan pengingat aktivitas.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="brand">My Personal Assistant</span><br>
+      Created by Dee
+    </div>
+
+  </div>
 
 </body>
 </html>
