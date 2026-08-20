@@ -171,7 +171,8 @@
           <p>Kelola jadwal dan tindak lanjut customer.</p>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item"
+          onclick="openMonitoring()">
           <div class="icon">📊</div>
           <h3>Monitoring & Rekap</h3>
           <p>Lihat perkembangan dan hasil aktivitas.</p>
@@ -202,6 +203,9 @@
 <script>
 function openCustomerEngagement() {
   window.location.href = "customer-engagement.html";
+}
+  function openMonitoring() {
+    window.location.href = "monitoring.html";
 }
 </script>
 </body>
