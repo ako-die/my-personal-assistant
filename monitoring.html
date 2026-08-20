@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring & Rekap</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f7f3ff;
+  color: #17324d;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  background: white;
+}
+
+.header {
+  background: linear-gradient(135deg, #8b6fc7, #b79bea);
+  color: white;
+  padding: 28px 22px 30px;
+  border-radius: 0 0 28px 28px;
+}
+
+.header small {
+  font-size: 13px;
+  opacity: .9;
+}
+
+.header h1 {
+  font-size: 27px;
+  margin-top: 8px;
+}
+
+.header p {
+  margin-top: 7px;
+  font-size: 14px;
+  opacity: .9;
+}
+
+.content {
+  padding: 22px 18px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f7f3ff;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.card .number {
+  font-size: 28px;
+  font-weight: bold;
+  color: #8062bd;
+}
+
+.card .label {
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.search {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd6ee;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.data-card {
+  border: 1px solid #e4deed;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(20, 30, 50, .06);
+}
+
+.data-card h3 {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.data-card p {
+  font-size: 13px;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #eee7ff;
+  color: #6546a0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  padding: 35px 15px;
+  color: #777;
+}
+
+.back {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  border-radius: 14px;
+  background: #eee8fb;
+  color: #17324d;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: #8062bd;
+}
+
+.footer .brand {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer small {
+  display: block;
+  color: #888;
+  margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>📊 SMART ASSISTANT</small>
+    <h1>Monitoring & Rekap</h1>
+    <p>Melihat perkembangan dan hasil aktivitas customer.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="summary">
+      <div class="card">
+        <div class="number" id="totalData">0</div>
+        <div class="label">Total Customer</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalFollowup">0</div>
+        <div class="label">Follow-up</div>
+      </div>
+    </div>
+
+    <input
+      type="text"
+      id="search"
+      class="search"
+      placeholder="🔎 Cari nama customer..."
+      oninput="tampilkanData()"
+    >
+
+    <div id="dataList"></div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div>
+
+<script>
+
+function ambilData() {
+
+  let data = JSON.parse(
+    localStorage.getItem("customerEngagementData") || "[]"
+  );
+
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+
+  return data;
+}
+
+
+function tampilkanData() {
+
+  const data = ambilData();
+
+  const keyword =
+    document.getElementById("search").value.toLowerCase();
+
+  const hasil = data.filter(item =>
+    (item.nama || "").toLowerCase().includes(keyword)
+  );
+
+  document.getElementById("totalData").innerText =
+    data.length;
+
+  document.getElementById("totalFollowup").innerText =
+    data.filter(item =>
+      (item.status || "").toLowerCase().includes("follow")
+    ).length;
+
+  const list =
+    document.getElementById("dataList");
+
+  if (hasil.length === 0) {
+
+    list.innerHTML = `
+      <div class="empty">
+        📭<br><br>
+        Belum ada data customer.
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML = hasil.map(item => `
+
+    <div class="data-card">
+
+      <h3>👤 ${item.nama || "-"}</h3>
+
+      <p>
+        <b>Nomor Customer:</b>
+        ${item.nomor || "-"}
+      </p>
+
+      <p>
+        <b>Segment:</b>
+        ${item.segment || "-"}
+      </p>
+
+      <p>
+        <b>Tanggal:</b>
+        ${item.tanggal || "-"}
+      </p>
+
+      <p>
+        <b>Kebutuhan:</b>
+        ${item.kebutuhan || "-"}
+      </p>
+
+      <p>
+        <b>Solusi / Penawaran:</b>
+        ${item.solusi || "-"}
+      </p>
+
+      <p>
+        <b>Status:</b>
+        <span class="badge">
+          ${item.status || "-"}
+        </span>
+      </p>
+
+      <p>
+        <b>Tanggal Follow-up:</b>
+        ${item.followup || "-"}
+      </p>
+
+      <p>
+        <b>Catatan:</b>
+        ${item.catatan || "-"}
+      </p>
+
+    </div>
+
+  `).join("");
+}
+
+
+function kembali() {
+  window.location.href = "index.html";
+}
+
+
+tampilkanData();
+
+</script>
+
+</body>
+</html>
