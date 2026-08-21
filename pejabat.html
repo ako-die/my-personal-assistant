@@ -318,8 +318,9 @@ function tampilkanData() {
 
   const petugasDipilih =
     document
-      .getElementById("filterPetugas")
-      .value;
+    .getElementById("filterPetugas")
+    .value
+    .trim();
 
 
   const hasil = data.filter(item => {
@@ -328,10 +329,10 @@ function tampilkanData() {
       (item.nama || "")
         .toLowerCase()
         .includes(keyword);
-
-    const cocokPetugas =
-      petugasDipilih === "" ||
-      (item.petugas || "") === petugasDipilih;
+const cocokPetugas =
+    petugasDipilih === "" ||
+    (item.petugas || "").trim() === petugasDipilih;
+    
 
     return cocokNama && cocokPetugas;
 
