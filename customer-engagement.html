@@ -242,18 +242,26 @@ function simpanData(){
   }
 
   let daftarData = JSON.parse(
-  localStorage.getItem("customerEngagementData") || "[]"
+    localStorage.getItem("customerEngagementData") || "[]"
 );
 
 if (!Array.isArray(daftarData)) {
-  daftarData = [daftarData];
+    daftarData = [daftarData];
 }
 
-daftarData.push(data);
+const index = daftarData.findIndex(
+    item => item.nomor === data.nomor
+);
+
+if (index !== -1) {
+    daftarData[index] = data;
+} else {
+    daftarData.push(data);
+}
 
 localStorage.setItem(
-  "customerEngagementData",
-  JSON.stringify(daftarData)
+    "customerEngagementData",
+    JSON.stringify(daftarData)
 );
   document.getElementById("hasil").style.display = "block";
 
