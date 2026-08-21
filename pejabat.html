@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pejabat - My Personal Assistant</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f7f3ff;
+  color: #17324d;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.header {
+  background: linear-gradient(135deg, #8b6fc7, #b79bea);
+  color: white;
+  padding: 28px 22px 30px;
+  border-radius: 0 0 28px 28px;
+}
+
+.header small {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin-top: 8px;
+}
+
+.header p {
+  margin-top: 7px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.content {
+  padding: 22px 18px;
+}
+
+.welcome {
+  margin-bottom: 20px;
+}
+
+.welcome h2 {
+  font-size: 20px;
+  color: #17324d;
+}
+
+.welcome p {
+  margin-top: 5px;
+  color: #718096;
+  font-size: 13px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f7f3ff;
+  border-radius: 18px;
+  padding: 18px 10px;
+  text-align: center;
+}
+
+.number {
+  font-size: 28px;
+  font-weight: bold;
+  color: #7b5bb6;
+}
+
+.label {
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.search,
+select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #e4e1ed;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  background: #ffffff;
+  color: #17324d;
+  outline: none;
+}
+
+.data-card {
+  border: 1px solid #e4e1ed;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(80, 60, 130, 0.08);
+}
+
+.data-card h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #17324d;
+}
+
+.data-card p {
+  margin-bottom: 11px;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: #eee4ff;
+  color: #7652ad;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  padding: 35px 15px;
+  color: #718096;
+}
+
+.back {
+  width: 100%;
+  border: none;
+  background: #eee7ff;
+  color: #17324d;
+  padding: 17px;
+  border-radius: 18px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.footer {
+  text-align: center;
+  padding: 35px 20px;
+  color: #999;
+}
+
+.footer .brand {
+  color: #7b5bb6;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer small {
+  display: block;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>👔 PEJABAT</small>
+    <h1>Monitoring Laporan</h1>
+    <p>Melihat laporan aktivitas customer dari petugas.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="welcome">
+      <h2>Dashboard Pejabat</h2>
+      <p>Pantau aktivitas dan tindak lanjut customer.</p>
+    </div>
+
+    <div class="summary">
+
+      <div class="card">
+        <div class="number" id="totalData">0</div>
+        <div class="label">Total Customer</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalFollowup">0</div>
+        <div class="label">Follow-up</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalBerhasil">0</div>
+        <div class="label">Berhasil</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalBelumBerhasil">0</div>
+        <div class="label">Belum Berhasil</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalBelumFollowup">0</div>
+        <div class="label">Belum Follow-up</div>
+      </div>
+
+      <div class="card">
+        <div class="number" id="totalAktivitas">0</div>
+        <div class="label">Total Aktivitas</div>
+      </div>
+
+    </div>
+
+    <input
+      type="text"
+      id="search"
+      class="search"
+      placeholder="🔎 Cari nama customer..."
+      oninput="tampilkanData()"
+    >
+
+    <select
+      id="filterPetugas"
+      onchange="tampilkanData()"
+    >
+      <option value="">Semua Petugas</option>
+    </select>
+
+    <div id="dataList"></div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div>
+
+<script>
+
+function ambilData() {
+
+  let data = JSON.parse(
+    localStorage.getItem("customerEngagementData") || "[]"
+  );
+
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+
+  return data;
+}
+
+
+function isiFilterPetugas() {
+
+  const data = ambilData();
+
+  const select =
+    document.getElementById("filterPetugas");
+
+  const petugas = [
+    ...new Set(
+      data
+        .map(item => item.petugas)
+        .filter(
+          nama => nama && nama.trim() !== ""
+        )
+    )
+  ];
+
+  select.innerHTML =
+    '<option value="">Semua Petugas</option>';
+
+  petugas.forEach(nama => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = nama;
+    option.textContent = nama;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+function tampilkanData() {
+
+  const data = ambilData();
+
+  const keyword =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+  const petugasDipilih =
+    document
+      .getElementById("filterPetugas")
+      .value;
+
+
+  const hasil = data.filter(item => {
+
+    const cocokNama =
+      (item.nama || "")
+        .toLowerCase()
+        .includes(keyword);
+
+    const cocokPetugas =
+      petugasDipilih === "" ||
+      (item.petugas || "") === petugasDipilih;
+
+    return cocokNama && cocokPetugas;
+
+  });
+
+
+  document.getElementById("totalData").innerText =
+    hasil.length;
+
+
+  document.getElementById("totalFollowup").innerText =
+    hasil.filter(item =>
+      (item.status || "")
+        .toLowerCase() === "follow-up"
+    ).length;
+
+
+  document.getElementById("totalBerhasil").innerText =
+    hasil.filter(item =>
+      (item.status || "")
+        .toLowerCase() === "berhasil"
+    ).length;
+
+
+  document.getElementById("totalBelumBerhasil").innerText =
+    hasil.filter(item =>
+      (item.status || "")
+        .toLowerCase() === "belum berhasil"
+    ).length;
+
+
+  document.getElementById("totalBelumFollowup").innerText =
+    hasil.filter(item =>
+      (item.status || "")
+        .toLowerCase() === "belum follow-up"
+    ).length;
+
+
+  document.getElementById("totalAktivitas").innerText =
+    hasil.length;
+
+
+  const list =
+    document.getElementById("dataList");
+
+
+  if (hasil.length === 0) {
+
+    list.innerHTML = `
+      <div class="empty">
+        📭<br><br>
+        Belum ada data customer.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML = hasil.map(item =>
