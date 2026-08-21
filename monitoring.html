@@ -264,16 +264,21 @@ function tampilkanData() {
   const keyword =
     document.getElementById("search").value.toLowerCase();
 
-  const petugasDipilih =
-  document.getElementById("filterPetugas").value.trim();
+  const filter = document.getElementById("filterPetugas");
+
+const petugasDipilih = filter.value.trim();
+
+const semuaPetugas =
+    petugasDipilih === "" ||
+    filter.options[filter.selectedIndex].text.trim().toLowerCase() === "semua petugas";
 
 const hasil = data.filter(item => {
   const cocokNama =
     (item.nama || "").toLowerCase().includes(keyword);
-
-  const cocokPetugas =
-    petugasDipilih === "" ||
-    (item.petugas || "")trim()=== petugasDipilih;
+const cocokPetugas =
+    semuaPetugas ||
+    (item.petugas || "").trim() === petugasDipilih;ex
+  
 
   return cocokNama && cocokPetugas;
 });
