@@ -172,6 +172,32 @@ body{
       </div>
 
     </div>
+<div class="section">
+
+    <h2>👤 Nama Customer</h2>
+
+    <input
+        type="text"
+        id="namaCustomer"
+        placeholder="Masukkan nama customer..."
+    >
+
+</div>
+    <div class="section">
+
+    <h2>💬 Isi Ucapan</h2>
+
+    <textarea
+        id="isiUcapan"
+        placeholder="Tuliskan ucapan untuk customer..."
+        rows="5"
+    ></textarea>
+
+</div>
+    
+<button class="save" onclick="simpanKartu()">
+    💾 Simpan Kartu
+</button>
 
     <button class="back" onclick="kembali()">
       ← Kembali ke Menu Utama
@@ -220,7 +246,47 @@ function previewGambar(event){
 
   reader.readAsDataURL(file);
 }
+function simpanKartu(){
 
+    const nama = document.getElementById("namaCustomer").value.trim();
+    const ucapan = document.getElementById("isiUcapan").value.trim();
+    const gambar = document.getElementById("previewImage").src;
+
+    if(nama === ""){
+        alert("Nama customer belum diisi.");
+        return;
+    }
+
+    if(ucapan === ""){
+        alert("Isi ucapan belum diisi.");
+        return;
+    }
+
+    if(!gambar || gambar === window.location.href){
+        alert("Silakan pilih gambar kartu terlebih dahulu.");
+        return;
+    }
+
+    const data = {
+        nama: nama,
+        ucapan: ucapan,
+        gambar: gambar,
+        tanggal: new Date().toISOString()
+    };
+
+    let daftarKartu = JSON.parse(
+        localStorage.getItem("kartuUcapanData") || "[]"
+    );
+
+    daftarKartu.push(data);
+
+    localStorage.setItem(
+        "kartuUcapanData",
+        JSON.stringify(daftarKartu)
+    );
+
+    alert("Kartu ucapan berhasil disimpan.");
+}
 function kembali(){
   window.location.href = "index.html";
 }
