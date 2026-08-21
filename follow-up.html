@@ -211,7 +211,7 @@ button{
         <option value="KMK">KMK</option>
         <option value="AIA">AIA</option>
         <option value="BCA Life">BCA Life</option>
-        <option value="Eduplan">Eduplan</option>
+        <option value="Refinancing">Refinancing</option>
       </select>
 
       <label>Tanggal Follow-up</label>
@@ -248,7 +248,29 @@ button{
         id="catatan"
         placeholder="Tuliskan hasil atau rencana tindak lanjut..."
       ></textarea>
+<label>Tanggal Follow-up</label>
+<input
+  type="date"
+  id="tanggal"
+>
 
+<label>Jam Follow-up</label>
+<input
+  type="time"
+  id="jam"
+>
+
+<label>Status Follow-up</label>
+<select id="status">
+  <option value="Belum Follow-up">Belum Follow-up</option>
+  <option value="Sudah Follow-up">Sudah Follow-up</option>
+</select>
+
+<label>Catatan Follow-up</label>
+<textarea
+  id="catatan"
+  placeholder="Tuliskan hasil atau catatan follow-up..."
+></textarea>
     </div>
 
 
@@ -338,7 +360,7 @@ function simpanFollowUp(){
     document.getElementById("tanggal").value;
 
   const waktu =
-    document.getElementById("waktu").value;
+    document.getElementById("jam").value;
 
   const status =
     document.getElementById("status").value;
@@ -509,7 +531,7 @@ function kirimWhatsApp(){
     document.getElementById("tanggal").value;
 
   const waktu =
-    document.getElementById("waktu").value;
+    document.getElementById("jam").value;
 
   const status =
     document.getElementById("status").value;
