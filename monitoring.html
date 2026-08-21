@@ -176,6 +176,25 @@ body {
         <div class="number" id="totalFollowup">0</div>
         <div class="label">Follow-up</div>
       </div>
+      <div class="card">
+    <div class="number" id="totalBerhasil">0</div>
+    <div class="label">Berhasil</div>
+</div>
+
+<div class="card">
+    <div class="number" id="totalBelumBerhasil">0</div>
+    <div class="label">Belum Berhasil</div>
+</div>
+
+<div class="card">
+    <div class="number" id="totalBelumFollowup">0</div>
+    <div class="label">Belum Follow-up</div>
+</div>
+
+<div class="card">
+    <div class="number" id="totalAktivitas">0</div>
+    <div class="label">Total Aktivitas</div>
+</div>
     </div>
 
     <input
@@ -231,11 +250,28 @@ function tampilkanData() {
   document.getElementById("totalData").innerText =
     data.length;
 
-  document.getElementById("totalFollowup").innerText =
+document.getElementById("totalFollowup").innerText =
     data.filter(item =>
-      (item.status || "").toLowerCase().includes("follow")
+        (item.status || "").toLowerCase() === "follow-up"
     ).length;
 
+document.getElementById("totalBerhasil").innerText =
+    data.filter(item =>
+        (item.status || "").toLowerCase() === "berhasil"
+    ).length;
+
+document.getElementById("totalBelumBerhasil").innerText =
+    data.filter(item =>
+        (item.status || "").toLowerCase() === "belum berhasil"
+    ).length;
+
+document.getElementById("totalBelumFollowup").innerText =
+    data.filter(item =>
+        (item.status || "").toLowerCase() === "belum follow-up"
+    ).length;
+
+document.getElementById("totalAktivitas").innerText =
+    data.length;
   const list =
     document.getElementById("dataList");
 
