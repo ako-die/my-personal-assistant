@@ -392,3 +392,67 @@ function tampilkanData() {
 
 
   list.innerHTML = hasil.map(item =>
+`
+<div class="data-card">
+
+    <h3>👤 ${item.nama || "-"}</h3>
+
+    <p>
+        <b>Nama Petugas:</b>
+        ${item.petugas || "-"}
+    </p>
+
+    <p>
+        <b>Nomor Customer:</b>
+        ${item.nomor || "-"}
+    </p>
+
+    <p>
+        <b>Segment:</b>
+        ${item.segment || "-"}
+    </p>
+
+    <p>
+        <b>Tanggal:</b>
+        ${item.tanggal || "-"}
+    </p>
+
+    <p>
+        <b>Kebutuhan:</b>
+        ${item.kebutuhan || "-"}
+    </p>
+
+    <p>
+        <b>Solusi / Penawaran:</b>
+        ${item.solusi || "-"}
+    </p>
+
+    <p>
+        <b>Status:</b>
+        <span class="badge">
+            ${item.status || "-"}
+        </span>
+    </p>
+
+    <p>
+        <b>Tanggal Follow-up:</b>
+        ${item.followup || "-"}
+    </p>
+
+    <p>
+        <b>Catatan:</b>
+        ${item.catatan || "-"}
+    </p>
+
+</div>
+`
+).join("");
+
+}
+
+tampilkanData();
+
+</script>
+
+</body>
+</html>
