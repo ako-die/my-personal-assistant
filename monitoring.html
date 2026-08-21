@@ -265,7 +265,7 @@ function tampilkanData() {
     document.getElementById("search").value.toLowerCase();
 
   const petugasDipilih =
-  document.getElementById("filterPetugas").value;
+  document.getElementById("filterPetugas").value.trim();
 
 const hasil = data.filter(item => {
   const cocokNama =
@@ -273,7 +273,7 @@ const hasil = data.filter(item => {
 
   const cocokPetugas =
     petugasDipilih === "" ||
-    (item.petugas || "") === petugasDipilih;
+    (item.petugas || "")trim()=== petugasDipilih;
 
   return cocokNama && cocokPetugas;
 });
