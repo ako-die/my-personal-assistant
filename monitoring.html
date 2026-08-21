@@ -204,7 +204,9 @@ body {
       placeholder="🔎 Cari nama customer..."
       oninput="tampilkanData()"
     >
-
+<select id="filterPetugas" class="search" onchange="tampilkanData()">
+    <option value="">Semua Petugas</option>
+</select>
     <div id="dataList"></div>
 
     <button class="back" onclick="kembali()">
@@ -234,7 +236,26 @@ function ambilData() {
 
   return data;
 }
+function isiFilterPetugas() {
+    const data = ambilData();
 
+    const select = document.getElementById("filterPetugas");
+
+    const petugas = [...new Set(
+        data
+            .map(item => item.petugas)
+            .filter(nama => nama && nama.trim() !== "")
+    )];
+
+    select.innerHTML = '<option value="">Semua Petugas</option>';
+
+    petugas.forEach(nama => {
+        const option = document.createElement("option");
+        option.value = nama;
+        option.textContent = nama;
+        select.appendChild(option);
+    });
+}
 
 function tampilkanData() {
 
@@ -348,7 +369,7 @@ function kembali() {
   window.location.href = "index.html";
 }
 
-
+isiFilterPetugas();
 tampilkanData();
 
 </script>
