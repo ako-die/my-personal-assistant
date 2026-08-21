@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kartu Ucapan</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f7f3ff;
+  color:#17324d;
+  min-height:100vh;
+}
+
+.app{
+  max-width:480px;
+  margin:auto;
+  background:white;
+  min-height:100vh;
+}
+
+.header{
+  background:linear-gradient(135deg,#7650b5,#b58bea);
+  color:white;
+  padding:35px 25px;
+  border-radius:0 0 35px 35px;
+}
+
+.header small{
+  font-size:14px;
+  font-weight:bold;
+}
+
+.header h1{
+  margin-top:10px;
+  font-size:30px;
+}
+
+.header p{
+  margin-top:10px;
+  font-size:15px;
+}
+
+.content{
+  padding:25px;
+}
+
+.section{
+  background:#f8f5ff;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+}
+
+.section h2{
+  font-size:20px;
+  margin-bottom:15px;
+}
+
+.upload{
+  display:block;
+  width:100%;
+  padding:15px;
+  background:#7650b5;
+  color:white;
+  text-align:center;
+  border-radius:15px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+#fileInput{
+  display:none;
+}
+
+.preview{
+  margin-top:20px;
+  text-align:center;
+}
+
+.preview img{
+  max-width:100%;
+  max-height:400px;
+  border-radius:15px;
+  display:none;
+  margin:auto;
+  box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.empty{
+  padding:40px 15px;
+  border:2px dashed #c9b9e8;
+  border-radius:15px;
+  color:#8b7ca5;
+}
+
+.back{
+  width:100%;
+  border:none;
+  padding:15px;
+  border-radius:15px;
+  background:#eee8fa;
+  color:#17324d;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px 20px;
+  color:#999;
+}
+
+.footer .brand{
+  color:#7650b5;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.footer small{
+  display:block;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>🎁 SMART ASSISTANT</small>
+    <h1>Kartu Ucapan</h1>
+    <p>Buat kartu ucapan untuk customer.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+
+      <h2>📤 Upload Kartu</h2>
+
+      <label class="upload" for="fileInput">
+        Pilih File / Gambar
+      </label>
+
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        onchange="previewGambar(event)"
+      >
+
+      <div class="preview">
+
+        <div class="empty" id="emptyPreview">
+          🖼️<br><br>
+          Preview gambar akan muncul di sini
+        </div>
+
+        <img id="previewImage" alt="Preview Kartu Ucapan">
+
+      </div>
+
+    </div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div>
+
+<script>
+
+function previewGambar(event){
+
+  const file = event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+    alert("Silakan pilih file gambar.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const previewImage =
+      document.getElementById("previewImage");
+
+    const emptyPreview =
+      document.getElementById("emptyPreview");
+
+    previewImage.src = e.target.result;
+
+    previewImage.style.display = "block";
+
+    emptyPreview.style.display = "none";
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function kembali(){
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
