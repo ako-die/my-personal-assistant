@@ -277,7 +277,7 @@ const hasil = data.filter(item => {
     (item.nama || "").toLowerCase().includes(keyword);
 const cocokPetugas =
     semuaPetugas ||
-    (item.petugas || "").trim() === petugasDipilih;ex
+    (item.petugas || "").trim() === petugasDipilih;
   
 
   return cocokNama && cocokPetugas;
