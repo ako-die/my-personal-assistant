@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat & Penawaran</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f7f3ff;
+  color:#17324d;
+}
+
+.app{
+  max-width:700px;
+  margin:auto;
+  min-height:100vh;
+  background:white;
+}
+
+.header{
+  background:linear-gradient(135deg,#7b4fc4,#b276e8);
+  color:white;
+  padding:30px 25px;
+  border-radius:0 0 35px 35px;
+}
+
+.header small{
+  font-weight:bold;
+}
+
+.header h1{
+  margin:12px 0 8px;
+  font-size:30px;
+}
+
+.header p{
+  margin:0;
+  font-size:16px;
+}
+
+.content{
+  padding:25px;
+}
+
+.section{
+  background:#f8f5ff;
+  padding:22px;
+  margin-bottom:20px;
+  border-radius:22px;
+}
+
+.section h2{
+  margin-top:0;
+  color:#17324d;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:14px;
+  border:1px solid #d4c5e8;
+  border-radius:12px;
+  font-size:16px;
+  font-family:Arial,sans-serif;
+}
+
+textarea{
+  min-height:180px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:15px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.primary{
+  background:#7650bd;
+  color:white;
+}
+
+.copy{
+  background:#e8ddfa;
+  color:#17324d;
+}
+
+.reset{
+  background:#f0eeee;
+  color:#333;
+}
+
+.back{
+  background:#eee4fb;
+  color:#17324d;
+}
+
+.footer{
+  text-align:center;
+  padding:30px 20px;
+  background:#faf8ff;
+}
+
+.footer .brand{
+  color:#7650bd;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.footer small{
+  display:block;
+  margin-top:10px;
+  color:#999;
+  font-size:16px;
+}
+
+#hasilChat{
+  display:none;
+}
+
+.info{
+  background:#eee4fb;
+  padding:12px;
+  border-radius:12px;
+  margin-top:10px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>💬 SMART ASSISTANT</small>
+    <h1>Chat & Penawaran</h1>
+    <p>Buat draft chat penawaran untuk customer.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+      <h2>👤 Data Customer</h2>
+
+      <label>Nama Customer</label>
+      <input
+        type="text"
+        id="namaCustomer"
+        placeholder="Masukkan nama customer..."
+      >
+
+      <br><br>
+
+      <label>Kebutuhan Customer</label>
+      <textarea
+        id="kebutuhan"
+        placeholder="Contoh: membutuhkan kendaraan baru..."
+      ></textarea>
+    </div>
+
+    <div class="section">
+      <h2>🏦 Pilih Produk</h2>
+
+      <label>Produk yang akan ditawarkan</label>
+
+      <select id="produk">
+        <option value="">-- Pilih Produk --</option>
+        <option value="KKB">KKB</option>
+        <option value="KPR">KPR</option>
+        <option value="KSM">KSM</option>
+        <option value="KMK">KMK</option>
+        <option value="AIA">AIA</option>
+        <option value="BCA Life">BCA Life</option>
+        <option value="Eduplan">Eduplan</option>
+      </select>
+
+      <div class="info">
+        💡 Pilih produk yang paling sesuai dengan kebutuhan customer.
+      </div>
+    </div>
+
+    <button class="primary" onclick="buatDraft()">
+      ✨ Buat Draft Chat
+    </button>
+
+    <div class="section" id="hasilChat">
+
+      <h2>💬 Draft Chat Penawaran</h2>
+
+      <textarea id="chatPenawaran" readonly></textarea>
+
+      <button class="copy" onclick="salinChat()">
+        📋 Salin Chat
+      </button>
+
+      <button class="reset" onclick="resetForm()">
+        🔄 Buat Draft Baru
+      </button>
+
+    </div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div>
+
+<script>
+
+function buatDraft(){
+
+  const nama =
+    document.getElementById("namaCustomer").value.trim();
+
+  const kebutuhan =
+    document.getElementById("kebutuhan").value.trim();
+
+  const produk =
+    document.getElementById("produk").value;
+
+  if(nama === ""){
+    alert("Nama customer belum diisi.");
+    return;
+  }
+
+  if(kebutuhan === ""){
+    alert("Kebutuhan customer belum diisi.");
+    return;
+  }
+
+  if(produk === ""){
+    alert("Silakan pilih produk terlebih dahulu.");
+    return;
+  }
+
+  const chat =
+    "Halo Bapak/Ibu " + nama + ", " +
+    "perkenalkan saya dari BCA. " +
+    "Terkait kebutuhan Bapak/Ibu mengenai " +
+    kebutuhan + ", " +
+    "saya ingin menyampaikan informasi mengenai " +
+    produk + ". " +
+    "Produk ini dapat menjadi salah satu solusi " +
+    "yang dapat disesuaikan dengan kebutuhan Bapak/Ibu. " +
+    "Apabila berkenan, saya dapat memberikan informasi " +
+    "lebih lanjut mengenai produk tersebut. " +
+    "Terima kasih.";
+
+  document.getElementById("chatPenawaran").value = chat;
+
+  document.getElementById("hasilChat").style.display = "block";
+
+  document.getElementById("hasilChat").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+
+function salinChat(){
+
+  const chat =
+    document.getElementById("chatPenawaran").value;
+
+  navigator.clipboard.writeText(chat)
+    .then(function(){
+
+      alert("Chat berhasil disalin.");
+
+    })
+    .catch(function(){
+
+      alert("Chat tidak dapat disalin otomatis. Silakan copy secara manual.");
+
+    });
+
+}
+
+
+function resetForm(){
+
+  document.getElementById("namaCustomer").value = "";
+
+  document.getElementById("kebutuhan").value = "";
+
+  document.getElementById("produk").value = "";
+
+  document.getElementById("chatPenawaran").value = "";
+
+  document.getElementById("hasilChat").style.display = "none";
+
+}
+
+
+function kembali(){
+
+  window.location.href = "index.html";
+
+}
+
+</script>
+
+</body>
+</html>
