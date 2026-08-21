@@ -399,7 +399,12 @@ function simpanFollowUp(){
     );
 
 
-  daftar.push(data);
+  if(editIndex !== -1){
+    daftar[editIndex] = data;
+    editIndex = -1;
+}else{
+    daftar.push(data);
+}
 
 
   localStorage.setItem(
@@ -474,9 +479,13 @@ function tampilkanData(){
 
       "<br><br>" +
 
-      "<button class='reset' onclick='hapusFollowUp(" +
-      index +
-      ")'>🗑️ Hapus</button>";
+     "<button class='primary' onclick='editFollowUp(" +
+index +
+")'>✏️ Edit</button>" +
+
+"<button class='reset' onclick='hapusFollowUp(" +
+index +
+")'>🗑️ Hapus</button>"; 
 
 
     tempat.appendChild(item);
@@ -511,7 +520,34 @@ function hapusFollowUp(index){
   tampilkanData();
 
 }
+let editIndex = -1;
 
+function editFollowUp(index){
+
+    let daftar = JSON.parse(
+        localStorage.getItem("dataFollowUp") || "[]"
+    );
+
+    let data = daftar[index];
+
+    if(!data){
+        alert("Data follow-up tidak ditemukan.");
+        return;
+    }
+
+    document.getElementById("nama").value = data.nama || "";
+    document.getElementById("nomor").value = data.nomor || "";
+    document.getElementById("kebutuhan").value = data.kebutuhan || "";
+    document.getElementById("produk").value = data.produk || "";
+    document.getElementById("tanggal").value = data.tanggal || "";
+    document.getElementById("jam").value = data.waktu || "";
+    document.getElementById("status").value = data.status || "Belum Follow-up";
+    document.getElementById("catatan").value = data.catatan || "";
+
+    editIndex = index;
+
+    alert("Data follow-up siap diedit.");
+}
 
 function kirimWhatsApp(){
 
