@@ -321,8 +321,31 @@ function tampilkanKartu(){
             <small>
                 Disimpan: ${new Date(kartu.tanggal).toLocaleString("id-ID")}
             </small>
+     <button
+    class="back"
+    onclick="hapusKartu(${index})">
+    🗑️ Hapus Kartu
+</button>  
         </div>
     `).join("");
+}
+  function hapusKartu(index){
+    if(!confirm("Yakin ingin menghapus kartu ini?")){
+        return;
+    }
+
+    let daftarKartu = JSON.parse(
+        localStorage.getItem("kartuUcapanData") || "[]"
+    );
+
+    daftarKartu.splice(index, 1);
+
+    localStorage.setItem(
+        "kartuUcapanData",
+        JSON.stringify(daftarKartu)
+    );
+
+    tampilkanKartu();
 }
   function kembali(){
   
