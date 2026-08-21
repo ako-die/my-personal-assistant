@@ -153,6 +153,8 @@ textarea{
       <label>Nomor Customer</label>
       <input id="nomor" type="text" placeholder="Masukkan nomor customer">
 
+      <label>Nama Petugas</label>
+<input id="petugas" type="text" placeholder="Masukkan nama petugas">
       <label>Segment Customer</label>
       <select id="segment">
         <option value="">Pilih segment</option>
@@ -227,6 +229,7 @@ function simpanData(){
   const data = {
     nama: document.getElementById("nama").value,
     nomor: document.getElementById("nomor").value,
+    petugas: document.getElementById("petugas").value,
     segment: document.getElementById("segment").value,
     tanggal: document.getElementById("tanggal").value,
     kebutuhan: document.getElementById("kebutuhan").value,
