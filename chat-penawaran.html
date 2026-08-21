@@ -212,7 +212,9 @@ button{
       <button class="copy" onclick="salinChat()">
         📋 Salin Chat
       </button>
-
+<button class="primary" onclick="kirimWhatsApp()">
+  💬 Kirim ke WhatsApp
+</button>
       <button class="reset" onclick="resetForm()">
         🔄 Buat Draft Baru
       </button>
@@ -322,6 +324,17 @@ function kembali(){
 
   window.location.href = "index.html";
 
+}
+function kirimWhatsApp(){
+  const chat = document.getElementById("chatPenawaran").value;
+
+  if(chat === ""){
+    alert("Buat draft chat terlebih dahulu.");
+    return;
+  }
+
+  const url = "https://wa.me/?text=" + encodeURIComponent(chat);
+  window.open(url, "_blank");
 }
 
 </script>
