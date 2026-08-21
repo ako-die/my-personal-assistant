@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Follow-up Customer</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f7f3ff;
+  color:#17324d;
+}
+
+.app{
+  max-width:700px;
+  margin:auto;
+  min-height:100vh;
+  background:white;
+}
+
+.header{
+  background:linear-gradient(135deg,#7b4fc4,#b276e8);
+  color:white;
+  padding:30px 25px;
+  border-radius:0 0 35px 35px;
+}
+
+.header small{
+  font-weight:bold;
+}
+
+.header h1{
+  margin:12px 0 8px;
+  font-size:30px;
+}
+
+.header p{
+  margin:0;
+  font-size:16px;
+}
+
+.content{
+  padding:25px;
+}
+
+.section{
+  background:#f8f5ff;
+  padding:22px;
+  margin-bottom:20px;
+  border-radius:22px;
+}
+
+.section h2{
+  margin-top:0;
+  color:#17324d;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:18px;
+  border:2px solid #d9c9ec;
+  border-radius:14px;
+  font-size:16px;
+  font-family:Arial,sans-serif;
+  background:white;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  border:none;
+  padding:15px;
+  margin-bottom:12px;
+  border-radius:15px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#7b4fc4;
+  color:white;
+}
+
+.whatsapp{
+  background:#25d366;
+  color:white;
+}
+
+.reset{
+  background:#eeeeee;
+  color:#333;
+}
+
+.back{
+  background:#eadcff;
+  color:#17324d;
+}
+
+.info{
+  background:#eee3ff;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.list-item{
+  background:white;
+  border:2px solid #e3d8ef;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:12px;
+}
+
+.list-item strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.footer{
+  text-align:center;
+  padding:30px 20px;
+  background:#faf8ff;
+}
+
+.footer .brand{
+  color:#7b4fc4;
+  font-size:28px;
+  font-weight:bold;
+}
+
+.footer small{
+  display:block;
+  margin-top:8px;
+  color:#999;
+  font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <small>📅 SMART ASSISTANT</small>
+    <h1>Follow-up Customer</h1>
+    <p>Kelola jadwal dan tindak lanjut customer.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section">
+
+      <h2>👤 Data Customer</h2>
+
+      <label>Nama Customer</label>
+      <input
+        type="text"
+        id="nama"
+        placeholder="Masukkan nama customer..."
+      >
+
+      <label>Nomor WhatsApp</label>
+      <input
+        type="tel"
+        id="nomor"
+        placeholder="Contoh: 08123456789"
+      >
+
+      <label>Kebutuhan Customer</label>
+      <textarea
+        id="kebutuhan"
+        placeholder="Tuliskan kebutuhan customer..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="section">
+
+      <h2>🏦 Detail Follow-up</h2>
+
+      <label>Produk</label>
+
+      <select id="produk">
+        <option value="">-- Pilih Produk --</option>
+        <option value="KKB">KKB</option>
+        <option value="KPR">KPR</option>
+        <option value="KSM">KSM</option>
+        <option value="KMK">KMK</option>
+        <option value="AIA">AIA</option>
+        <option value="BCA Life">BCA Life</option>
+        <option value="Eduplan">Eduplan</option>
+      </select>
+
+      <label>Tanggal Follow-up</label>
+      <input
+        type="date"
+        id="tanggal"
+      >
+
+      <label>Waktu Follow-up</label>
+      <input
+        type="time"
+        id="waktu"
+      >
+
+      <label>Status</label>
+
+      <select id="status">
+        <option value="Belum Follow-up">
+          Belum Follow-up
+        </option>
+
+        <option value="Sudah Follow-up">
+          Sudah Follow-up
+        </option>
+
+        <option value="Pending">
+          Pending
+        </option>
+      </select>
+
+      <label>Catatan</label>
+
+      <textarea
+        id="catatan"
+        placeholder="Tuliskan hasil atau rencana tindak lanjut..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="info">
+      💡 Pastikan data customer dan jadwal
+      follow-up sudah benar sebelum disimpan.
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="simpanFollowUp()"
+    >
+      💾 Simpan Follow-up
+    </button>
+
+
+    <button
+      class="whatsapp"
+      onclick="kirimWhatsApp()"
+    >
+      💬 Kirim ke WhatsApp
+    </button>
+
+
+    <button
+      class="reset"
+      onclick="resetForm()"
+    >
+      🔄 Buat Follow-up Baru
+    </button>
+
+
+    <div class="section">
+
+      <h2>📋 Data Follow-up Tersimpan</h2>
+
+      <div id="daftarFollowUp">
+        Belum ada data follow-up.
+      </div>
+
+    </div>
+
+
+    <button
+      class="back"
+      onclick="kembali()"
+    >
+      ← Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+
+  <div class="footer">
+
+    <div class="brand">
+      My Personal Assistant
+    </div>
+
+    <small>
+      Created by Dee
+    </small>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function simpanFollowUp(){
+
+  const nama =
+    document.getElementById("nama").value.trim();
+
+  const nomor =
+    document.getElementById("nomor").value.trim();
+
+  const kebutuhan =
+    document.getElementById("kebutuhan").value.trim();
+
+  const produk =
+    document.getElementById("produk").value;
+
+  const tanggal =
+    document.getElementById("tanggal").value;
+
+  const waktu =
+    document.getElementById("waktu").value;
+
+  const status =
+    document.getElementById("status").value;
+
+  const catatan =
+    document.getElementById("catatan").value.trim();
+
+
+  if(nama === ""){
+    alert("Nama customer belum diisi.");
+    return;
+  }
+
+
+  if(tanggal === ""){
+    alert("Tanggal follow-up belum dipilih.");
+    return;
+  }
+
+
+  const data = {
+    nama:nama,
+    nomor:nomor,
+    kebutuhan:kebutuhan,
+    produk:produk,
+    tanggal:tanggal,
+    waktu:waktu,
+    status:status,
+    catatan:catatan
+  };
+
+
+  let daftar =
+    JSON.parse(
+      localStorage.getItem("dataFollowUp") || "[]"
+    );
+
+
+  daftar.push(data);
+
+
+  localStorage.setItem(
+    "dataFollowUp",
+    JSON.stringify(daftar)
+  );
+
+
+  alert("Data follow-up berhasil disimpan.");
+
+  tampilkanData();
+
+  resetForm();
+
+}
+
+
+function tampilkanData(){
+
+  const tempat =
+    document.getElementById("daftarFollowUp");
+
+  let daftar =
+    JSON.parse(
+      localStorage.getItem("dataFollowUp") || "[]"
+    );
+
+
+  if(daftar.length === 0){
+
+    tempat.innerHTML =
+      "Belum ada data follow-up.";
+
+    return;
+
+  }
+
+
+  tempat.innerHTML = "";
+
+
+  daftar.forEach(function(data,index){
+
+    const item =
+      document.createElement("div");
+
+    item.className = "list-item";
+
+
+    item.innerHTML =
+
+      "<strong>👤 " +
+      data.nama +
+      "</strong>" +
+
+      "📅 " +
+      data.tanggal +
+      " " +
+      (data.waktu || "") +
+      "<br>" +
+
+      "🏦 Produk: " +
+      (data.produk || "-") +
+      "<br>" +
+
+      "📌 Status: " +
+      data.status +
+      "<br>" +
+
+      "📝 " +
+      (data.catatan || "-") +
+
+      "<br><br>" +
+
+      "<button class='reset' onclick='hapusFollowUp(" +
+      index +
+      ")'>🗑️ Hapus</button>";
+
+
+    tempat.appendChild(item);
+
+  });
+
+}
+
+
+function hapusFollowUp(index){
+
+  if(!confirm("Hapus data follow-up ini?")){
+    return;
+  }
+
+
+  let daftar =
+    JSON.parse(
+      localStorage.getItem("dataFollowUp") || "[]"
+    );
+
+
+  daftar.splice(index,1);
+
+
+  localStorage.setItem(
+    "dataFollowUp",
+    JSON.stringify(daftar)
+  );
+
+
+  tampilkanData();
+
+}
+
+
+function kirimWhatsApp(){
+
+  const nama =
+    document.getElementById("nama").value.trim();
+
+  const nomor =
+    document.getElementById("nomor").value.trim();
+
+  const kebutuhan =
+    document.getElementById("kebutuhan").value.trim();
+
+  const produk =
+    document.getElementById("produk").value;
+
+  const tanggal =
+    document.getElementById("tanggal").value;
+
+  const waktu =
+    document.getElementById("waktu").value;
+
+  const status =
+    document.getElementById("status").value;
+
+  const catatan =
+    document.getElementById("catatan").value.trim();
+
+
+  if(nama === ""){
+
+    alert("Nama customer belum diisi.");
+
+    return;
+
+  }
+
+
+  let pesan =
+
+    "Halo Bapak/Ibu " +
+    nama +
+    ", saya ingin melakukan follow-up terkait kebutuhan Bapak/Ibu." +
+
+    "\n\n" +
+
+    "Kebutuhan: " +
+    (kebutuhan || "-") +
+
+    "\n" +
+
+    "Produk: " +
+    (produk || "-") +
+
+    "\n" +
+
+    "Jadwal Follow-up: " +
+    tanggal +
+    " " +
+    (waktu || "") +
+
+    "\n" +
+
+    "Status: " +
+    status +
+
+    "\n\n" +
+
+    (catatan || "") +
+
+    "\n\nTerima kasih.";
+
+
+  let tujuan = nomor.replace(/\D/g,"");
+
+
+  if(tujuan.startsWith("0")){
+    tujuan = "62" + tujuan.substring(1);
+  }
+
+
+  let url;
+
+
+  if(tujuan !== ""){
+
+    url =
+      "https://wa.me/" +
+      tujuan +
+      "?text=" +
+      encodeURIComponent(pesan);
+
+  }else{
+
+    url =
+      "https://wa.me/?text=" +
+      encodeURIComponent(pesan);
+
+  }
+
+
+  window.open(url,"_blank");
+
+}
+
+
+function resetForm(){
+
+  document.getElementById("nama").value = "";
+
+  document.getElementById("nomor").value = "";
+
+  document.getElementById("kebutuhan").value = "";
+
+  document.getElementById("produk").value = "";
+
+  document.getElementById("tanggal").value = "";
+
+  document.getElementById("waktu").value = "";
+
+  document.getElementById("status").value =
+    "Belum Follow-up";
+
+  document.getElementById("catatan").value = "";
+
+}
+
+
+function kembali(){
+
+  window.location.href = "index.html";
+
+}
+
+
+tampilkanData();
+
+</script>
+
+</body>
+</html>
