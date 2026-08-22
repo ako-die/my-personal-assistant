@@ -322,81 +322,97 @@ button{
 
 function simpanFollowUp(){
 
-  const nama =
-    document.getElementById("nama").value.trim();
+    const nama =
+        document.getElementById("nama").value.trim();
 
-  const nomor =
-    document.getElementById("nomor").value.trim();
+    const nomor =
+        document.getElementById("nomor").value.trim();
 
-  const kebutuhan =
-    document.getElementById("kebutuhan").value.trim();
+    const kebutuhan =
+        document.getElementById("kebutuhan").value.trim();
 
-  const produk =
-    document.getElementById("produk").value;
+    const produk =
+        document.getElementById("produk").value;
 
-  const tanggal =
-    document.getElementById("tanggal").value;
+    const tanggal =
+        document.getElementById("tanggal").value;
 
-  const waktu =
-    document.getElementById("waktu").value;
+    const waktu =
+        document.getElementById("waktu").value;
 
-  const status =
-    document.getElementById("status").value;
+    const status =
+        document.getElementById("status").value;
 
-  const catatan =
-    document.getElementById("catatan").value.trim();
-
-
-  if(nama === ""){
-    alert("Nama customer belum diisi.");
-    return;
-  }
+    const catatan =
+        document.getElementById("catatan").value.trim();
 
 
-  if(tanggal === ""){
-    alert("Tanggal follow-up belum dipilih.");
-    return;
-  }
+    if(nama === ""){
+        alert("Nama customer belum diisi.");
+        return;
+    }
+
+    if(tanggal === ""){
+        alert("Tanggal follow-up belum dipilih.");
+        return;
+    }
 
 
-  const data = {
-    nama:nama,
-    nomor:nomor,
-    kebutuhan:kebutuhan,
-    produk:produk,
-    tanggal:tanggal,
-    waktu:waktu,
-    status:status,
-    catatan:catatan
-  };
+    const data = {
+        nama: nama,
+        nomor: nomor,
+        kebutuhan: kebutuhan,
+        produk: produk,
+        tanggal: tanggal,
+        waktu: waktu,
+        status: status,
+        catatan: catatan
+    };
 
 
-  let daftar =
-    JSON.parse(
-      localStorage.getItem("dataFollowUp") || "[]"
+    let daftar = JSON.parse(
+        localStorage.getItem("dataFollowUp") || "[]"
     );
 
 
-  if(editIndex !== -1){
-    daftar[editIndex] = data;
-    editIndex = -1;
-}else{
-    daftar.push(data);
-}
+    const indexEdit = localStorage.getItem("editFollowUpIndex");
 
 
-  localStorage.setItem(
-    "dataFollowUp",
-    JSON.stringify(daftar)
-  );
+    if(indexEdit !== null){
+
+        const index = Number(indexEdit);
+
+        if(index >= 0 && index < daftar.length){
+
+            daftar[index] = data;
+
+            alert("Data follow-up berhasil diperbarui.");
+
+        }else{
+
+            daftar.push(data);
+
+            alert("Data follow-up berhasil disimpan.");
+        }
+
+        localStorage.removeItem("editFollowUpIndex");
+
+    }else{
+
+        daftar.push(data);
+
+        alert("Data follow-up berhasil disimpan.");
+    }
 
 
-  alert("Data follow-up berhasil disimpan.");
+    localStorage.setItem(
+        "dataFollowUp",
+        JSON.stringify(daftar)
+    );
 
-  tampilkanData();
+    tampilkanData();
 
-  resetForm();
-
+    resetForm();
 }
 
 
@@ -522,7 +538,7 @@ function editFollowUp(index){
     document.getElementById("status").value = data.status || "Belum Follow-up";
     document.getElementById("catatan").value = data.catatan || "";
 
-    editIndex = index;
+    localStorage.setItem("editFollowUpIndex", index);
 
     alert("Data follow-up siap diedit.");
 }
