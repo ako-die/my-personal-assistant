@@ -161,7 +161,28 @@
 
     alert("Pengingat berhasil disimpan.");
 }
+function tampilkanPengingat() {
+    const data = JSON.parse(localStorage.getItem("pengingat"));
 
+    const daftar = document.getElementById("daftarPengingat");
+
+    if (!data) {
+        daftar.innerHTML = "Belum ada pengingat.";
+        return;
+    }
+
+    daftar.innerHTML = `
+        <div class="card">
+            <b>${data.pekerjaan}</b><br>
+            📅 ${data.tanggal}<br>
+            ⏰ ${data.waktu}<br>
+            ⭐ ${data.prioritas}<br>
+            📝 ${data.catatan}
+        </div>
+    `;
+}
+
+tampilkanPengingat();
     function kembaliHome() {
       window.location.href = "index.html";
     }
