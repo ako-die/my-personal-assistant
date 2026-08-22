@@ -180,13 +180,14 @@ function tampilkanPengingat() {
         return;
     }
 
-    daftar.innerHTML = data.map(item => `
+    daftar.innerHTML = data.map((item, index) => `
         <div class="card">
             <b>${item.pekerjaan}</b><br>
             📅 ${item.tanggal}<br>
             ⏰ ${item.waktu}<br>
             ⭐ ${item.prioritas}<br>
             📝 ${item.catatan}
+            <button onclick="hapusPengingat(${index})">🗑️ Hapus</button>
         </div>
     `).join("");
 }
@@ -195,7 +196,15 @@ tampilkanPengingat();
     function kembaliHome() {
       window.location.href = "index.html";
     }
+function hapusPengingat(index) {
+    let data = JSON.parse(localStorage.getItem("pengingat")) || [];
 
+    data.splice(index, 1);
+
+    localStorage.setItem("pengingat", JSON.stringify(data));
+
+    tampilkanPengingat();
+}
   </script>
 
 </body>
