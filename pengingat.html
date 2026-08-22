@@ -138,8 +138,29 @@
   <script>
 
     function simpanPengingat() {
-      alert("Data pengingat siap disimpan.");
+    const pekerjaan = document.getElementById("pekerjaan").value.trim();
+    const tanggal = document.getElementById("tanggal").value;
+    const waktu = document.getElementById("waktu").value;
+    const prioritas = document.getElementById("prioritas").value;
+    const catatan = document.getElementById("catatan").value.trim();
+
+    if (pekerjaan === "" || tanggal === "" || waktu === "") {
+        alert("Nama pekerjaan, tanggal, dan waktu wajib diisi.");
+        return;
     }
+
+    const data = {
+        pekerjaan,
+        tanggal,
+        waktu,
+        prioritas,
+        catatan
+    };
+
+    localStorage.setItem("pengingat", JSON.stringify(data));
+
+    alert("Pengingat berhasil disimpan.");
+}
 
     function kembaliHome() {
       window.location.href = "index.html";
