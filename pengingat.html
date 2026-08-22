@@ -155,31 +155,40 @@
         waktu,
         prioritas,
         catatan
-    };
+    }
 
-    localStorage.setItem("pengingat", JSON.stringify(data));
+    let daftarPengingat = JSON.parse(localStorage.getItem("pengingat")) || [];
+
+if (!Array.isArray(daftarPengingat)) {
+    daftarPengingat = [daftarPengingat];
+}
+
+daftarPengingat.push(data);
+
+localStorage.setItem("pengingat", JSON.stringify(daftarPengingat));
 
     alert("Pengingat berhasil disimpan.");
 }
 function tampilkanPengingat() {
-    const data = JSON.parse(localStorage.getItem("pengingat"));
+    
+    const data = JSON.parse(localStorage.getItem("pengingat")) || [];
 
     const daftar = document.getElementById("daftarPengingat");
 
-    if (!data) {
+    if (data.length === 0) {
         daftar.innerHTML = "Belum ada pengingat.";
         return;
     }
 
-    daftar.innerHTML = `
+    daftar.innerHTML = data.map(item => `
         <div class="card">
-            <b>${data.pekerjaan}</b><br>
-            📅 ${data.tanggal}<br>
-            ⏰ ${data.waktu}<br>
-            ⭐ ${data.prioritas}<br>
-            📝 ${data.catatan}
+            <b>${item.pekerjaan}</b><br>
+            📅 ${item.tanggal}<br>
+            ⏰ ${item.waktu}<br>
+            ⭐ ${item.prioritas}<br>
+            📝 ${item.catatan}
         </div>
-    `;
+    `).join("");
 }
 
 tampilkanPengingat();
