@@ -375,35 +375,20 @@ function simpanFollowUp(){
     );
 
 
-    const indexEdit = localStorage.getItem("editFollowUpIndex");
+    if(editIndex !== -1){
 
+    daftar[editIndex] = data;
 
-    if(indexEdit !== null){
+    alert("Data follow-up berhasil diperbarui.");
 
-        const index = Number(indexEdit);
+    editIndex = -1;
 
-        if(index >= 0 && index < daftar.length){
+}else{
 
-            daftar[index] = data;
+    daftar.push(data);
 
-            alert("Data follow-up berhasil diperbarui.");
-
-        }else{
-
-            daftar.push(data);
-
-            alert("Data follow-up berhasil disimpan.");
-        }
-
-        localStorage.removeItem("editFollowUpIndex");
-
-    }else{
-
-        daftar.push(data);
-
-        alert("Data follow-up berhasil disimpan.");
-    }
-
+    alert("Data follow-up berhasil disimpan.");
+}
 
     localStorage.setItem(
         "dataFollowUp",
@@ -514,8 +499,8 @@ function hapusFollowUp(index){
   tampilkanData();
 
 }
-  var editIndex = -1;
-
+  
+var editIndex = -1;
 function editFollowUp(index){
 
     let daftar = JSON.parse(
@@ -538,7 +523,7 @@ function editFollowUp(index){
     document.getElementById("status").value = data.status || "Belum Follow-up";
     document.getElementById("catatan").value = data.catatan || "";
 
-    localStorage.setItem("editFollowUpIndex", index);
+    editIndex = index;
 
     alert("Data follow-up siap diedit.");
 }
