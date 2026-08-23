@@ -137,7 +137,7 @@
 
   <script>
 
-    let indexEdit = -1;
+    let indexEdit = null;
     function simpanPengingat() {
     const pekerjaan = document.getElementById("pekerjaan").value.trim();
     const tanggal = document.getElementById("tanggal").value;
@@ -164,11 +164,11 @@ if (!Array.isArray(daftarPengingat)) {
     daftarPengingat = [daftarPengingat];
 }
 
-if (indexEdit === -1) {
+if (indexEdit === null) {
     daftarPengingat.push(data);
 } else {
     daftarPengingat[indexEdit] = data;
-    indexEdit = -1;
+    indexEdit = null;
 }
 localStorage.setItem("pengingat", JSON.stringify(daftarPengingat));
 
