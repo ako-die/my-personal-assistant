@@ -51,10 +51,7 @@
 
     <h1>📊 Laporan Aktivitas</h1>
 
-    <div class="kosong">
-        Belum ada laporan aktivitas.
-    </div>
-
+    <div id="daftarLaporan"></div>
     <button class="kembali" onclick="kembaliHome()">
         🏠 Kembali ke Menu Utama
     </button>
@@ -65,6 +62,31 @@
 function kembaliHome() {
     window.location.href = "index.html";
 }
+    function tampilkanLaporan() {
+
+    const daftar = document.getElementById("daftarLaporan");
+
+    const semuaLaporan =
+        JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
+
+    if (semuaLaporan.length === 0) {
+        daftar.innerHTML = "<div class='kosong'>Belum ada laporan aktivitas.</div>";
+        return;
+    }
+
+    daftar.innerHTML = semuaLaporan.map((laporan, index) => `
+        <div class="laporan">
+            <h3>📋 Laporan #${index + 1}</h3>
+            <p><strong>👤 Customer:</strong> ${laporan.nama}</p>
+            <p><strong>💡 Kebutuhan:</strong> ${laporan.kebutuhan}</p>
+            <p><strong>📦 Produk:</strong> ${laporan.produk}</p>
+            <p><strong>💬 Hasil Chat:</strong> ${laporan.hasilChat}</p>
+            <p><strong>🕐 Waktu:</strong> ${laporan.waktu}</p>
+        </div>
+    `).join("");
+}
+
+tampilkanLaporan();
 </script>
 
 </body>
