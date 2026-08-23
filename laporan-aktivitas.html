@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Aktivitas</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .kosong {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        .kembali {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #777;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📊 Laporan Aktivitas</h1>
+
+    <div class="kosong">
+        Belum ada laporan aktivitas.
+    </div>
+
+    <button class="kembali" onclick="kembaliHome()">
+        🏠 Kembali ke Menu Utama
+    </button>
+
+</div>
+
+<script>
+function kembaliHome() {
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
