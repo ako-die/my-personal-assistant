@@ -241,7 +241,15 @@ select {
     </select>
 
     <div id="dataList"></div>
+<div class="action-buttons">
+    <button onclick="cetakLaporan()">
+        🖨️ Cetak Laporan
+    </button>
 
+    <button onclick="shareLaporan()">
+        📤 Share Laporan
+    </button>
+</div>
     <button class="back" onclick="kembali()">
       ← Kembali ke Menu Utama
     </button>
@@ -456,7 +464,21 @@ const cocokPetugas =
   
 isiFilterPetugas();
 tampilkanData();
+function cetakLaporan() {
+    window.print();
+}
+  function shareLaporan() {
+    const laporan = document.getElementById("dataList").innerText;
 
+    if (navigator.share) {
+        navigator.share({
+            title: "Laporan Customer",
+            text: laporan
+        });
+    } else {
+        alert("Fitur share tidak didukung di browser ini.");
+    }
+}
 </script>
 
 </body>
