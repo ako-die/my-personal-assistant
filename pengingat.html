@@ -137,6 +137,7 @@
 
   <script>
 
+    let indexEdit = -1;
     function simpanPengingat() {
     const pekerjaan = document.getElementById("pekerjaan").value.trim();
     const tanggal = document.getElementById("tanggal").value;
@@ -163,8 +164,12 @@ if (!Array.isArray(daftarPengingat)) {
     daftarPengingat = [daftarPengingat];
 }
 
-daftarPengingat.push(data);
-
+if (indexEdit === -1) {
+    daftarPengingat.push(data);
+} else {
+    daftarPengingat[indexEdit] = data;
+    indexEdit = -1;
+}
 localStorage.setItem("pengingat", JSON.stringify(daftarPengingat));
 
     alert("Pengingat berhasil disimpan.");
@@ -187,6 +192,7 @@ function tampilkanPengingat() {
             ⏰ ${item.waktu}<br>
             ⭐ ${item.prioritas}<br>
             📝 ${item.catatan}
+            <button onclick="editPengingat(${index})">✏️ Edit</button>
             <button onclick="hapusPengingat(${index})">🗑️ Hapus</button>
         </div>
     `).join("");
@@ -196,6 +202,23 @@ tampilkanPengingat();
     function kembaliHome() {
       window.location.href = "index.html";
     }
+    function editPengingat(index) {
+      indexEdit = index;
+    const data = JSON.parse(localStorage.getItem("pengingat")) || [];
+
+    const item = data[index];
+
+    document.getElementById("pekerjaan").value = item.pekerjaan;
+    document.getElementById("tanggal").value = item.tanggal;
+    document.getElementById("waktu").value = item.waktu;
+    document.getElementById("prioritas").value = item.prioritas;
+    document.getElementById("catatan").value = item.catatan;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 function hapusPengingat(index) {
     let data = JSON.parse(localStorage.getItem("pengingat")) || [];
 
