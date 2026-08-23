@@ -82,10 +82,27 @@ function kembaliHome() {
             <p><strong>📦 Produk:</strong> ${laporan.produk}</p>
             <p><strong>💬 Hasil Chat:</strong> ${laporan.hasilChat}</p>
             <p><strong>🕐 Waktu:</strong> ${laporan.waktu}</p>
+            <button onclick="hapusLaporan(${index})">
+    🗑️ Hapus Laporan
+</button>
         </div>
     `).join("");
 }
+function hapusLaporan(index) {
+    const semuaLaporan =
+        JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
 
+    if (confirm("Hapus laporan ini?")) {
+        semuaLaporan.splice(index, 1);
+
+        localStorage.setItem(
+            "laporanAktivitas",
+            JSON.stringify(semuaLaporan)
+        );
+
+        tampilkanLaporan();
+    }
+}
 tampilkanLaporan();
 </script>
 
