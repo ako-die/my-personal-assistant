@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI Assistant - My Personal Assistant</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f7f3ff;
+      color: #17324d;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 480px;
+      margin: auto;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .header .icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 15px;
+      color: #666;
+    }
+
+    .content {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .back {
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #e9dcff;
+      color: #17324d;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      padding-bottom: 20px;
+    }
+
+    .footer .brand {
+      font-size: 22px;
+      font-weight: bold;
+      color: #6b3fa0;
+    }
+
+    .footer small {
+      display: block;
+      margin-top: 8px;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <div class="header">
+      <div class="icon">🤖</div>
+      <h1>AI Assistant</h1>
+      <p>Asisten AI untuk membantu pekerjaan.</p>
+    </div>
+
+    <div class="content">
+
+      <div class="welcome">
+        <h2>🤖 Selamat Datang</h2>
+        <p>
+          AI Assistant akan membantu pekerjaan
+          dan aktivitas customer secara lebih praktis.
+        </p>
+      </div>
+
+      <button class="back" onclick="kembali()">
+        ← Kembali ke Menu Utama
+      </button>
+
+    </div>
+
+    <div class="footer">
+      <div class="brand">My Personal Assistant</div>
+      <small>Created by Dee</small>
+    </div>
+
+  </div>
+
+  <script>
+    function kembali() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
