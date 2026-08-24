@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bantu Pekerjaan - My Personal Assistant</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f7f3ff;
+    color: #17324d;
+    min-height: 100vh;
+}
+
+.app {
+    max-width: 480px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.header .icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    font-size: 15px;
+    color: #666;
+}
+
+.content {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-size: 16px;
+    resize: vertical;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #b69cff;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.help {
+    background: #e9dcff;
+    color: #17324d;
+}
+
+.back {
+    background: #e9dcff;
+    color: #17324d;
+    margin-top: 25px;
+}
+
+.result {
+    margin-top: 25px;
+}
+
+.result h2 {
+    margin-bottom: 15px;
+}
+
+.answer {
+    background: #fafafa;
+    border: 1px solid #e5dff5;
+    border-radius: 15px;
+    padding: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 35px;
+    padding-bottom: 20px;
+}
+
+.footer .brand {
+    font-size: 22px;
+    font-weight: bold;
+    color: #6b3fa0;
+}
+
+.footer small {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="icon">💡</div>
+        <h1>Bantu Pekerjaan</h1>
+        <p>Membantu mencari ide dan solusi pekerjaan.</p>
+    </div>
+
+    <div class="content">
+
+        <h2>Masalah Pekerjaan</h2>
+
+        <textarea
+            id="masalahInput"
+            placeholder="Ceritakan pekerjaan atau masalah Anda di sini..."
+        ></textarea>
+
+        <button class="help" onclick="bantuPekerjaan()">
+            💡 Bantu Saya
+        </button>
+
+        <div class="result">
+            <h2>Ide & Solusi</h2>
+
+            <div id="hasil" class="answer">
+                Belum ada masalah yang dimasukkan.
+            </div>
+        </div>
+
+        <button class="back" onclick="kembali()">
+            ← Kembali ke AI Assistant
+        </button>
+
+    </div>
+
+    <div class="footer">
+        <div class="brand">My Personal Assistant</div>
+        <small>Created by Dee</small>
+    </div>
+
+</div>
+
+<script>
+
+function bantuPekerjaan() {
+
+    const input = document.getElementById("masalahInput");
+    const hasil = document.getElementById("hasil");
+
+    const masalah = input.value.trim();
+
+    if (masalah === "") {
+        alert("Silakan ceritakan pekerjaan atau masalah terlebih dahulu.");
+        return;
+    }
+
+    let jawaban =
+        "Berikut langkah yang bisa Anda coba:\n\n" +
+        "1. Tentukan masalah utama yang sedang dihadapi.\n" +
+        "2. Pecah pekerjaan menjadi beberapa langkah kecil.\n" +
+        "3. Tentukan pekerjaan yang paling penting untuk dikerjakan terlebih dahulu.\n" +
+        "4. Cari beberapa alternatif solusi.\n" +
+        "5. Pilih solusi yang paling sederhana dan memungkinkan dilakukan.\n\n" +
+        "Catatan:\n" +
+        "Jika Anda menjelaskan masalah dengan lebih detail, " +
+        "solusinya bisa dibuat lebih spesifik.";
+
+    const teks = masalah.toLowerCase();
+
+    if (teks.includes("customer") ||
+        teks.includes("pelanggan") ||
+        teks.includes("client")) {
+
+        jawaban =
+            "Untuk masalah customer/pelanggan, coba langkah berikut:\n\n" +
+            "1. Pahami kebutuhan atau keluhan customer.\n" +
+            "2. Catat masalah utama.\n" +
+            "3. Berikan beberapa pilihan solusi.\n" +
+            "4. Sampaikan solusi dengan bahasa yang sopan dan jelas.\n" +
+            "5. Lakukan follow up setelah masalah selesai.\n\n" +
+            "Pastikan setiap komunikasi dengan customer dicatat agar mudah ditindaklanjuti.";
+
+    } else if (teks.includes("laporan") ||
+               teks.includes("report")) {
+
+        jawaban =
+            "Untuk membuat laporan pekerjaan:\n\n" +
+            "1. Tentukan tujuan laporan.\n" +
+            "2. Kumpulkan data yang diperlukan.\n" +
+            "3. Susun informasi berdasarkan urutan yang jelas.\n" +
+            "4. Pisahkan masalah, tindakan, dan hasil.\n" +
+            "5. Periksa kembali angka dan informasi sebelum laporan dikirim.";
+
+    } else if (teks.includes("meeting") ||
+               teks.includes("rapat")) {
+
+        jawaban =
+            "Untuk mempersiapkan meeting:\n\n" +
+            "1. Tentukan tujuan meeting.\n" +
+            "2. Siapkan poin pembahasan.\n" +
+            "3. Catat keputusan yang harus diambil.\n" +
+            "4. Siapkan data pendukung.\n" +
+            "5. Setelah meeting, catat hasil dan tugas masing-masing.";
+    }
+
+    hasil.textContent = jawaban;
+}
+
+function kembali() {
+    window.location.href = "ai-assistant.html";
+}
+
+</script>
+
+</body>
+</html>
