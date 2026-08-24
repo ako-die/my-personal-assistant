@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buat Catatan - My Personal Assistant</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f7f3ff;
+  color: #17324d;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  padding: 25px 15px;
+}
+
+.header .icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  font-size: 15px;
+  color: #666;
+}
+
+.content {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  resize: vertical;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #b69cff;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save {
+  background: #e9dcff;
+  color: #17324d;
+}
+
+.back {
+  background: #e9dcff;
+  color: #17324d;
+}
+
+.notes {
+  margin-top: 25px;
+}
+
+.note {
+  background: #fafafa;
+  border: 1px solid #e5dff5;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.note p {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.delete {
+  background: #ffe4e4;
+  color: #a33;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 35px;
+  padding-bottom: 20px;
+}
+
+.footer .brand {
+  font-size: 22px;
+  font-weight: bold;
+  color: #6b3fa0;
+}
+
+.footer small {
+  display: block;
+  margin-top: 8px;
+  color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="icon">📝</div>
+    <h1>Buat Catatan</h1>
+    <p>Catatan pekerjaan Anda</p>
+  </div>
+
+  <div class="content">
+
+    <h2>Catatan Baru</h2>
+
+    <textarea id="catatan"
+      placeholder="Tulis catatan pekerjaan di sini..."></textarea>
+
+    <button class="save" onclick="simpanCatatan()">
+      💾 Simpan Catatan
+    </button>
+
+    <div class="notes">
+      <h2>Catatan Tersimpan</h2>
+      <div id="daftarCatatan"></div>
+    </div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke AI Assistant
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div>
+
+<script>
+
+function ambilCatatan() {
+  return JSON.parse(localStorage.getItem("catatanPekerjaan") || "[]");
+}
+
+function simpanCatatan() {
+
+  const input = document.getElementById("catatan");
+  const isi = input.value.trim();
+
+  if (isi === "") {
+    alert("Silakan tulis catatan terlebih dahulu.");
+    return;
+  }
+
+  const catatan = ambilCatatan();
+
+  catatan.push({
+    isi: isi,
+    waktu: new Date().toLocaleString("id-ID")
+  });
+
+  localStorage.setItem(
+    "catatanPekerjaan",
+    JSON.stringify(catatan)
+  );
+
+  input.value = "";
+
+  tampilkanCatatan();
+}
+
+function tampilkanCatatan() {
+
+  const daftar = document.getElementById("daftarCatatan");
+  const catatan = ambilCatatan();
+
+  daftar.innerHTML = "";
+
+  if (catatan.length === 0) {
+    daftar.innerHTML =
+      "<p style='text-align:center;color:#888;'>Belum ada catatan.</p>";
+    return;
+  }
+
+  catatan.forEach(function(item, index) {
+
+    const div = document.createElement("div");
+    div.className = "note";
+
+    div.innerHTML = `
+      <p>${item.isi}</p>
+      <small style="color:#888;">${item.waktu}</small>
+      <button class="delete" onclick="hapusCatatan(${index})">
+        🗑️ Hapus
+      </button>
+    `;
+
+    daftar.appendChild(div);
+  });
+}
+
+function hapusCatatan(index) {
+
+  const catatan = ambilCatatan();
+
+  catatan.splice(index, 1);
+
+  localStorage.setItem(
+    "catatanPekerjaan",
+    JSON.stringify(catatan)
+  );
+
+  tampilkanCatatan();
+}
+
+function kembali() {
+  window.location.href = "ai-assistant.html";
+}
+
+tampilkanCatatan();
+
+</script>
+
+</body>
+</html>
