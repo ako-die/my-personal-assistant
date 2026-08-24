@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ringkasan Pekerjaan - My Personal Assistant</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f7f3ff;
+    color: #17324d;
+    min-height: 100vh;
+}
+
+.app {
+    max-width: 480px;
+    margin: auto;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.header .icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    font-size: 15px;
+    color: #666;
+}
+
+.content {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-size: 16px;
+    resize: vertical;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #b69cff;
+}
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.summarize {
+    background: #e9dcff;
+    color: #17324d;
+}
+
+.result {
+    margin-top: 25px;
+}
+
+.result h2 {
+    margin-bottom: 15px;
+}
+
+.answer {
+    background: #fafafa;
+    border: 1px solid #e5dff5;
+    border-radius: 15px;
+    padding: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.back {
+    background: #e9dcff;
+    color: #17324d;
+    margin-top: 25px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 35px;
+    padding-bottom: 20px;
+}
+
+.footer .brand {
+    font-size: 22px;
+    font-weight: bold;
+    color: #6b3fa0;
+}
+
+.footer small {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="
+header">
+
+    <div class="icon">📊</div>
+    <h1>Ringkasan Pekerjaan</h1>
+    <p>Membantu merangkum aktivitas dan pekerjaan.</p>
+
+</div>
+
+<div class="content">
+
+    <h2>Aktivitas Pekerjaan</h2>
+
+    <textarea
+        id="aktivitasInput"
+        placeholder="Tuliskan aktivitas atau pekerjaan Anda di sini..."
+    ></textarea>
+
+    <button class="summarize" onclick="buatRingkasan()">
+        📊 Buat Ringkasan
+    </button>
+
+    <div class="result">
+
+        <h2>Hasil Ringkasan</h2>
+
+        <div id="hasil" class="answer">
+            Belum ada aktivitas yang dimasukkan.
+        </div>
+
+    </div>
+
+    <button class="back" onclick="kembali()">
+        ← Kembali ke AI Assistant
+    </button>
+
+</div>
+
+<div class="footer">
+
+    <div class="brand">My Personal Assistant</div>
+
+    <small>Created by Dee</small>
+
+</div>
+
+</div>
+
+<script>
+
+function buatRingkasan() {
+
+    const input = document.getElementById("aktivitasInput");
+    const hasil = document.getElementById("hasil");
+
+    const aktivitas = input.value.trim();
+
+    if (aktivitas === "") {
+
+        alert("Silakan masukkan aktivitas atau pekerjaan terlebih dahulu.");
+
+        return;
+    }
+
+    const teks = aktivitas
+        .split(/\n+/)
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+    let ringkasan = "";
+
+    ringkasan += "Ringkasan pekerjaan:\n\n";
+
+    if (teks.length === 1) {
+
+        ringkasan +=
+            "• Aktivitas: " + teks[0] + "\n\n";
+
+        ringkasan +=
+            "• Status: Aktivitas telah dicatat.";
+
+    } else {
+
+        teks.forEach((item, index) => {
+
+            ringkasan +=
+                (index + 1) + ". " + item + "\n";
+
+        });
+
+        ringkasan +=
+            "\nTotal aktivitas: " + teks.length + " pekerjaan.\n";
+
+        ringkasan +=
+            "Pastikan pekerjaan yang paling penting diprioritaskan terlebih dahulu.";
+    }
+
+    hasil.textContent = ringkasan;
+}
+
+function kembali() {
+
+    window.location.href = "ai-assistant.html";
+
+}
+
+</script>
+
+</body>
+</html>
