@@ -78,4 +78,133 @@ select:focus {
 button {
     width: 100%;
     border: none;
-   
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="icon">📋</div>
+    <h1>Buat To-Do</h1>
+    <p>Daftar pekerjaan yang harus Anda lakukan.</p>
+  </div>
+
+  <div class="content">
+
+    <h2>To-Do Baru</h2>
+
+    <input
+      type="text"
+      id="todoInput"
+      placeholder="Tulis pekerjaan di sini..."
+    >
+
+    <button class="save" onclick="tambahTodo()">
+      ➕ Tambah To-Do
+    </button>
+
+    <div class="notes">
+      <h2>Daftar To-Do</h2>
+      <div id="daftarTodo"></div>
+    </div>
+
+    <button class="back" onclick="kembali()">
+      ← Kembali ke AI Assistant
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <div class="brand">My Personal Assistant</div>
+    <small>Created by Dee</small>
+  </div>
+
+</div> 
+    <script>
+
+function ambilTodo() {
+  return JSON.parse(localStorage.getItem("daftarTodo") || "[]");
+}
+
+function tambahTodo() {
+  const input = document.getElementById("todoInput");
+  const isi = input.value.trim();
+
+  if (isi === "") {
+    alert("Silakan tulis pekerjaan terlebih dahulu.");
+    return;
+  }
+
+  const todo = ambilTodo();
+
+  todo.push({
+    tugas: isi,
+    waktu: new Date().toLocaleString("id-ID")
+  });
+
+  localStorage.setItem(
+    "daftarTodo",
+    JSON.stringify(todo)
+  );
+
+  input.value = "";
+
+  tampilkanTodo();
+}
+
+function tampilkanTodo() {
+  const daftar = document.getElementById("daftarTodo");
+  const todo = ambilTodo();
+
+  daftar.innerHTML = "";
+
+  if (todo.length === 0) {
+    daftar.innerHTML =
+      '<p style="text-align:center;color:#888;">Belum ada pekerjaan.</p>';
+    return;
+  }
+
+  todo.forEach(function(item, index) {
+
+    const div = document.createElement("div");
+    div.className = "note";
+
+    div.innerHTML = `
+      <p>${item.tugas}</p>
+      <small>${item.waktu}</small>
+      <button class="delete" onclick="hapusTodo(${index})">
+        🗑️ Hapus
+      </button>
+    `;
+
+    daftar.appendChild(div);
+  });
+}
+
+function hapusTodo(index) {
+  const todo = ambilTodo();
+
+  todo.splice(index, 1);
+
+  localStorage.setItem(
+    "daftarTodo",
+    JSON.stringify(todo)
+  );
+
+  tampilkanTodo();
+}
+
+function kembali() {
+  window.location.href = "ai-assistant.html";
+}
+
+tampilkanTodo();
+
+</script>
+
+</body>
+</html>
