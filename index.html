@@ -122,7 +122,108 @@
 </head>
 
 <body>
+<!-- SPLASH SCREEN -->
+<div id="splashScreen">
+  <div class="splash-content">
+    <img src="Paicon.png" alt="Personal Assistant" class="splash-logo">
 
+    <h1>My Personal Assistant</h1>
+    <p>Asisten Pintar untuk Aktivitasmu</p>
+
+    <div class="splash-loader">
+      <div class="splash-progress"></div>
+    </div>
+
+    <div class="splash-loading">Memuat...</div>
+  </div>
+</div>
+
+<style>
+  #splashScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #0757b8, #062b68);
+    color: white;
+    text-align: center;
+  }
+
+  .splash-content {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 25px;
+  }
+
+  .splash-logo {
+    width: 190px;
+    height: 190px;
+    object-fit: contain;
+    border-radius: 35px;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.25));
+  }
+
+  .splash-content h1 {
+    margin: 5px 0 8px;
+    font-size: 27px;
+    font-weight: 700;
+  }
+
+  .splash-content p {
+    margin: 0 0 28px;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  .splash-loader {
+    width: 220px;
+    height: 7px;
+    margin: 0 auto 12px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .splash-progress {
+    width: 0;
+    height: 100%;
+    background: #ffd43b;
+    border-radius: 10px;
+    animation: splashProgress 3s linear forwards;
+  }
+
+  .splash-loading {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  @keyframes splashProgress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  setTimeout(function() {
+    const splash = document.getElementById("splashScreen");
+
+    if (splash) {
+      splash.style.opacity = "0";
+      splash.style.transition = "opacity 0.5s ease";
+
+      setTimeout(function() {
+        splash.remove();
+      }, 500);
+    }
+  }, 3000);
+</script>
   <div class="app">
 
     <div class="header">
