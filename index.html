@@ -135,6 +135,7 @@
     </div>
 
     <div class="splash-loading">Memuat...</div>
+  <button class="splash-start" onclick="startApp()">🚀 MULAI</button>
   </div>
 </div>
 
@@ -199,6 +200,25 @@
     font-size: 13px;
     opacity: 0.85;
   }
+ .splash-start {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 13px 42px;
+  border: none;
+  border-radius: 30px;
+  background: #ffd43b;
+  color: #17324d;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.splash-start:active {
+  transform: scale(0.96);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+} 
 
   @keyframes splashProgress {
     from {
@@ -211,7 +231,7 @@
 </style>
 
 <script>
-  setTimeout(function() {
+  function startApp() {
     const splash = document.getElementById("splashScreen");
 
     if (splash) {
@@ -222,7 +242,7 @@
         splash.remove();
       }, 500);
     }
-  }, 3000);
+  }
 </script>
   <div class="app">
 
