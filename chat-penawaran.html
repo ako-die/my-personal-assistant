@@ -384,15 +384,59 @@ function kembali(){
 
 }
 function kirimWhatsApp(){
-  const chat = document.getElementById("chatPenawaran").value;
 
-  if(chat === ""){
+  const chat = document.getElementById("chatPenawaran").value;
+  const nama = document.getElementById("namaCustomer").value.trim();
+  const noCustomer = document.getElementById("noCustomer").value.trim();
+
+  if (chat === "") {
     alert("Buat draft chat terlebih dahulu.");
     return;
   }
 
-  const url = "https://wa.me/?text=" + encodeURIComponent(chat);
-  window.open(url, "_blank");
+  if (noCustomer === "") {
+    alert("Masukkan No. WhatsApp customer terlebih dahulu.");
+    return;
+  }
+
+  const nomor = noCustomer.replace(/\D/g, "");
+
+  const nomorWA = nomor.startsWith("0")
+    ? "62" + nomor.substring(1)
+    : nomor;
+
+  const url = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(chat);
+
+  const whatsappWindow = window.open(url, "_blank");
+
+  if (whatsappWindow) {
+
+    const laporan = {
+      nama: nama,
+      noCustomer: noCustomer,
+      kebutuhan: document.getElementById("kebutuhan").value.trim(),
+      produk: document.getElementById("produk").value,
+      statusPengiriman: "Terkirim",
+      waktu: new Date().toLocaleString("id-ID")
+    };
+
+    let semuaLaporan =
+      JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
+
+    semuaLaporan.push(laporan);
+
+    localStorage.setItem(
+      "laporanAktivitas",
+      JSON.stringify(semuaLaporan)
+    );
+
+    alert("Chat berhasil dikirim ke WhatsApp.");
+    
+  } else {
+
+    alert("Chat gagal dikirim. Silakan izinkan pop-up lalu tekan Kirim Ulang.");
+
+  }
 }
 
 </script>
