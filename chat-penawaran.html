@@ -228,7 +228,15 @@ button{
       <h2>💬 Draft Chat Penawaran</h2>
 
       <textarea id="chatPenawaran"></textarea>
-
+<label>📎 Lampiran File</label>
+<input
+  type="file"
+  id="fileLampiran"
+  accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+/>
+      <div id="namaFile" style="margin-top:10px;font-size:14px;color:#17324d;">
+  Belum ada file dipilih.
+</div>
       <button class="copy" onclick="salinChat()">
         📋 Salin Chat
       </button>
@@ -438,7 +446,23 @@ function kirimWhatsApp(){
 
   }
 }
+const fileLampiran = document.getElementById("fileLampiran");
 
+if (fileLampiran) {
+  fileLampiran.addEventListener("change", function () {
+
+    const namaFile = document.getElementById("namaFile");
+
+    if (this.files.length > 0) {
+      namaFile.textContent =
+        "📎 File dipilih: " + this.files[0].name;
+    } else {
+      namaFile.textContent =
+        "Belum ada file dipilih.";
+    }
+
+  });
+}
 </script>
 
 </body>
