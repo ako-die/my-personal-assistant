@@ -445,9 +445,28 @@ function kirimWhatsApp(){
     
   } else {
 
+    const laporanGagal = {
+        nama: nama,
+        noCustomer: noCustomer,
+        kebutuhan: document.getElementById("kebutuhan").value.trim(),
+        produk: document.getElementById("produk").value,
+        statusPengiriman: "Gagal",
+        waktu: new Date().toLocaleString("id-ID")
+    };
+
+    let semuaLaporan =
+        JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
+
+    semuaLaporan.push(laporanGagal);
+
+    localStorage.setItem(
+        "laporanAktivitas",
+        JSON.stringify(semuaLaporan)
+    );
+
     alert("Chat gagal dikirim. Silakan izinkan pop-up lalu tekan Kirim Ulang.");
 
-  }
+}
 }
 const fileLampiran = document.getElementById("fileLampiran");
 
