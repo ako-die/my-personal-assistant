@@ -374,9 +374,12 @@ function kembali(){
 }
 function kirimWhatsApp(){
 
-  const chat = document.getElementById("chatPenawaran").value;
+  const chat = document.getElementById("chatPenawaran").value.trim();
   const nama = document.getElementById("namaCustomer").value.trim();
   const noCustomer = document.getElementById("noCustomer").value.trim();
+  const kebutuhan = document.getElementById("kebutuhan").value.trim();
+  const produk = document.getElementById("produk").value;
+  const hasilChat = document.getElementById("hasilChatPilihan").value;
 
   if (chat === "") {
     alert("Buat draft chat terlebih dahulu.");
@@ -394,7 +397,11 @@ function kirimWhatsApp(){
     ? "62" + nomor.substring(1)
     : nomor;
 
-  const url = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(chat);
+  const url =
+    "https://wa.me/" +
+    nomorWA +
+    "?text=" +
+    encodeURIComponent(chat);
 
   const whatsappWindow = window.open(url, "_blank");
 
@@ -403,8 +410,9 @@ function kirimWhatsApp(){
     const laporan = {
       nama: nama,
       noCustomer: noCustomer,
-      kebutuhan: document.getElementById("kebutuhan").value.trim(),
-      produk: document.getElementById("produk").value,
+      kebutuhan: kebutuhan,
+      produk: produk,
+      hasilChat: hasilChat,
       statusPengiriman: "Terkirim",
       waktu: new Date().toLocaleString("id-ID")
     };
@@ -419,32 +427,15 @@ function kirimWhatsApp(){
       JSON.stringify(semuaLaporan)
     );
 
-    alert("Chat berhasil dikirim ke WhatsApp.");
-    
+    alert("Chat berhasil dikirim ke WhatsApp dan laporan berhasil dicatat.");
+
   } else {
 
-    const laporanGagal = {
-        nama: nama,
-        noCustomer: noCustomer,
-        kebutuhan: document.getElementById("kebutuhan").value.trim(),
-        produk: document.getElementById("produk").value,
-        statusPengiriman: "Gagal",
-        waktu: new Date().toLocaleString("id-ID")
-    };
-
-    let semuaLaporan =
-        JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
-
-    semuaLaporan.push(laporanGagal);
-
-    localStorage.setItem(
-        "laporanAktivitas",
-        JSON.stringify(semuaLaporan)
+    alert(
+      "WhatsApp tidak dapat dibuka. Silakan izinkan pop-up lalu coba lagi."
     );
 
-    alert("Chat gagal dikirim. Silakan izinkan pop-up lalu tekan Kirim Ulang.");
-
-}
+  }
 }
 const fileLampiran = document.getElementById("fileLampiran");
 
