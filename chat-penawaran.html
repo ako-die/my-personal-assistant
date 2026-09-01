@@ -466,6 +466,46 @@ if (fileLampiran) {
 
   });
 }
+  async function kirimDenganLampiran() {
+
+    const chat = document.getElementById("chatPenawaran").value.trim();
+    const fileInput = document.getElementById("fileLampiran");
+
+    if (chat === "") {
+        alert("Buat draft chat terlebih dahulu.");
+        return;
+    }
+
+    if (!fileInput || fileInput.files.length === 0) {
+        alert("Silakan pilih file lampiran terlebih dahulu.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    if (navigator.share && navigator.canShare) {
+
+        const dataShare = {
+            text: chat,
+            files: [file]
+        };
+
+        if (navigator.canShare(dataShare)) {
+            try {
+                await navigator.share(dataShare);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    alert("File gagal dibagikan. Silakan coba lagi.");
+                }
+            }
+        } else {
+            alert("Perangkat/browser tidak mendukung pengiriman file.");
+        }
+
+    } else {
+        alert("Fitur berbagi file belum didukung oleh browser ini.");
+    }
+}
 </script>
 
 </body>
