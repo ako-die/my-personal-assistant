@@ -327,30 +327,8 @@ function buatDraft() {
   });
 
 
-  // Simpan laporan aktivitas
-  const laporan = {
-    nama: nama,
-    kebutuhan: kebutuhan,
-    produk: produk,
-    hasilChat: hasilChat,
-    waktu: new Date().toLocaleString("id-ID")
-  };
-
-
-  let semuaLaporan =
-    JSON.parse(
-      localStorage.getItem("laporanAktivitas")
-    ) || [];
-
-
-  semuaLaporan.push(laporan);
-
-
-  localStorage.setItem(
-    "laporanAktivitas",
-    JSON.stringify(semuaLaporan)
-  );
-  alert("Laporan berhasil disimpan: " + semuaLaporan.length);
+ 
+  
 }
 
 
