@@ -456,43 +456,82 @@ if (fileLampiran) {
 }
   async function kirimDenganLampiran() {
 
-    const chat = document.getElementById("chatPenawaran").value.trim();
-    const fileInput = document.getElementById("fileLampiran");
+  const chat = document.getElementById("chatPenawaran").value.trim();
+  const fileInput = document.getElementById("fileLampiran");
 
-    if (chat === "") {
-        alert("Buat draft chat terlebih dahulu.");
-        return;
-    }
+  const nama = document.getElementById("namaCustomer").value.trim();
+  const noCustomer = document.getElementById("noCustomer").value.trim();
+  const kebutuhan = document.getElementById("kebutuhan").value.trim();
+  const produk = document.getElementById("produk").value;
+  const hasilChat = document.getElementById("hasilChatPilihan").value;
 
-    if (!fileInput || fileInput.files.length === 0) {
-        alert("Silakan pilih file lampiran terlebih dahulu.");
-        return;
-    }
+  if (chat === "") {
+    alert("Buat draft chat terlebih dahulu.");
+    return;
+  }
 
-    const file = fileInput.files[0];
+  if (!fileInput || fileInput.files.length === 0) {
+    alert("Silakan pilih file lampiran terlebih dahulu.");
+    return;
+  }
 
-    if (navigator.share && navigator.canShare) {
+  const file = fileInput.files[0];
 
-        const dataShare = {
-            text: chat,
-            files: [file]
+  if (navigator.share && navigator.canShare) {
+
+    const dataShare = {
+      text: chat,
+      files: [file]
+    };
+
+    if (navigator.canShare(dataShare)) {
+
+      try {
+
+        await navigator.share(dataShare);
+
+        // Simpan laporan setelah Chat + File berhasil dibagikan
+        const laporan = {
+          nama: nama,
+          noCustomer: noCustomer,
+          kebutuhan: kebutuhan,
+          produk: produk,
+          hasilChat: hasilChat,
+          statusPengiriman: "Terkirim",
+          waktu: new Date().toLocaleString("id-ID")
         };
 
-        if (navigator.canShare(dataShare)) {
-            try {
-                await navigator.share(dataShare);
-            } catch (error) {
-                if (error.name !== "AbortError") {
-                    alert("File gagal dibagikan. Silakan coba lagi.");
-                }
-            }
-        } else {
-            alert("Perangkat/browser tidak mendukung pengiriman file.");
+        let semuaLaporan =
+          JSON.parse(localStorage.getItem("laporanAktivitas")) || [];
+
+        semuaLaporan.push(laporan);
+
+        localStorage.setItem(
+          "laporanAktivitas",
+          JSON.stringify(semuaLaporan)
+        );
+
+        alert("Chat + File berhasil dikirim dan laporan berhasil dicatat.");
+
+      } catch (error) {
+
+        if (error.name !== "AbortError") {
+          alert("File gagal dibagikan. Silakan coba lagi.");
         }
 
+      }
+
     } else {
-        alert("Fitur berbagi file belum didukung oleh browser ini.");
+
+      alert("Perangkat/browser tidak mendukung pengiriman file.");
+
     }
+
+  } else {
+
+    alert("Fitur berbagi file belum didukung oleh browser ini.");
+
+  }
 }
 </script>
 
