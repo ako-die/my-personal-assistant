@@ -364,6 +364,38 @@ function tampilkanKartu(){
 
     tampilkanKartu();
 }
+  function kirimKartu(index){
+    const daftarKartu = JSON.parse(
+        localStorage.getItem("kartuUcapanData") || "[]"
+    );
+
+    const kartu = daftarKartu[index];
+
+    if(!kartu){
+        alert("Kartu tidak ditemukan.");
+        return;
+    }
+
+    let nomor = (kartu.noCustomer || "").replace(/\D/g, "");
+
+    if(nomor === ""){
+        alert("Nomor WhatsApp customer belum tersedia.");
+        return;
+    }
+
+    if(nomor.startsWith("0")){
+        nomor = "62" + nomor.substring(1);
+    }
+
+    const pesan = encodeURIComponent(
+        "Halo " + kartu.nama + ",\n\n" + kartu.ucapan
+    );
+
+    window.open(
+        "https://wa.me/" + nomor + "?text=" + pesan,
+        "_blank"
+    );
+}
   function kembali(){
   
   window.location.href = "index.html";
