@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Respons Customer</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f3ff;
+  color: #222;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  background: #e9dcff;
+  border-radius: 25px;
+  padding: 25px 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.header p {
+  margin-top: 8px;
+  color: #666;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 7px;
+}
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.respons-title {
+  margin-top: 25px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.option input {
+  width: auto;
+}
+
+.hijau {
+  background: #eef9e8;
+}
+
+.kuning {
+  background: #fff8d9;
+}
+
+.merah {
+  background: #ffeaea;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.simpan {
+  background: #7b4fc6;
+  color: white;
+}
+
+.kembali {
+  background: #777;
+  color: white;
+}
+
+.hasil {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f2edff;
+  border-radius: 12px;
+  display: none;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>💬 Respons Customer</h1>
+    <p>Catat hasil balasan customer</p>
+  </div>
+
+  <div class="card">
+
+    <label>👤 Nama Customer</label>
+    <input type="text" id="namaCustomer" placeholder="Masukkan nama customer">
+
+    <label>📱 No. WhatsApp</label>
+    <input type="text" id="noCustomer" placeholder="Masukkan No. WhatsApp">
+
+    <label>📦 Produk</label>
+    <select id="produk">
+      <option value="">-- Pilih Produk --</option>
+      <option value="KKB">KKB</option>
+      <option value="KPR">KPR</option>
+      <option value="KSM">KSM</option>
+      <option value="KMK">KMK</option>
+      <option value="AIA">AIA</option>
+      <option value="BCA Life">BCA Life</option>
+      <option value="Eduplan">Eduplan</option>
+    </select>
+
+    <div class="respons-title">
+      📋 Respons Customer
+    </div>
+
+    <label class="option hijau">
+      <input type="radio" name="respons" value="Tertarik & mau pengajuan">
+      🟢 Tertarik & mau pengajuan
+    </label>
+
+    <label class="option kuning">
+      <input type="radio" name="respons" value="Mau tanya-tanya dulu">
+      🟡 Mau tanya-tanya dulu
+    </label>
+
+    <label class="option merah">
+      <input type="radio" name="respons" value="Tidak tertarik">
+      🔴 Tidak tertarik
+    </label>
+
+    <button class="simpan" onclick="simpanRespons()">
+      💾 Simpan Respons
+    </button>
+
+    <div id="hasil" class="hasil"></div>
+
+    <button class="kembali" onclick="kembali()">
+      🏠 Kembali ke Menu Utama
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+function simpanRespons() {
+
+  const nama = document.getElementById("namaCustomer").value.trim();
+  const noCustomer = document.getElementById("noCustomer").value.trim();
+  const produk = document.getElementById("produk").value;
+
+  const pilihan = document.querySelector(
+    'input[name="respons"]:checked'
+  );
+
+  if (nama === "") {
+    alert("Masukkan nama customer terlebih dahulu.");
+    return;
+  }
+
+  if (noCustomer === "") {
+    alert("Masukkan No. WhatsApp customer terlebih dahulu.");
+    return;
+  }
+
+  if (produk === "") {
+    alert("Silakan pilih produk terlebih dahulu.");
+    return;
+  }
+
+  if (!pilihan) {
+    alert("Silakan pilih respons customer terlebih dahulu.");
+    return;
+  }
+
+  const dataRespons = {
+    nama: nama,
+    noCustomer: noCustomer,
+    produk: produk,
+    respons: pilihan.value,
+    waktu: new Date().toLocaleString("id-ID")
+  };
+
+  let semuaRespons =
+    JSON.parse(localStorage.getItem("responsCustomer")) || [];
+
+  semuaRespons.push(dataRespons);
+
+  localStorage.setItem(
+    "responsCustomer",
+    JSON.stringify(semuaRespons)
+  );
+
+  document.getElementById("hasil").style.display = "block";
+
+  document.getElementById("hasil").innerHTML =
+    "✅ Respons berhasil disimpan.<br><br>" +
+    "Customer: " + nama + "<br>" +
+    "Produk: " + produk + "<br>" +
+    "Respons: " + pilihan.value;
+
+}
+
+function kembali() {
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
