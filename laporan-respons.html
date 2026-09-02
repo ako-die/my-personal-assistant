@@ -153,5 +153,58 @@ body {
 <script>
 
 function ambilData() {
+    const semuaRespons =
+        JSON.parse(localStorage.getItem("responsCustomer")) || [];
 
+    let jumlahTertarik = 0;
+    let jumlahTanya = 0;
+    let jumlahTidak = 0;
+
+    semuaRespons.forEach(function(data) {
+        if (data.respons === "Tertarik & mau pengajuan") {
+            jumlahTertarik++;
+        } else if (data.respons === "Mau tanya-tanya dulu") {
+            jumlahTanya++;
+        } else if (data.respons === "Tidak tertarik") {
+            jumlahTidak++;
+        }
+    });
+
+    document.getElementById("jumlahTertarik").textContent = jumlahTertarik;
+    document.getElementById("jumlahTanya").textContent = jumlahTanya;
+    document.getElementById("jumlahTidak").textContent = jumlahTidak;
+
+    const daftar = document.getElementById("daftarRespons");
+
+    if (semuaRespons.length === 0) {
+        daftar.innerHTML =
+            "<p style='text-align:center;'>Belum ada respons customer.</p>";
+        return;
+    }
+
+    daftar.innerHTML = "";
+
+    semuaRespons.forEach(function(data) {
+        const item = document.createElement("div");
+
+        item.className = "rekap-item";
+
+        item.innerHTML =
+            "<strong>Customer:</strong> " + data.nama + "<br>" +
+            "<strong>No. WhatsApp:</strong> " + data.noCustomer + "<br>" +
+            "<strong>Produk:</strong> " + data.produk + "<br>" +
+            "<strong>Respons:</strong> " + data.respons + "<br>" +
+            "<strong>Waktu:</strong> " + data.waktu;
+
+        daftar.appendChild(item);
+    });
+}
+
+function kembali() {
+    window.location.href = "index.html";
+}
+
+ambilData();
+
+</script>
    
