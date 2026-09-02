@@ -321,7 +321,7 @@ function tampilkanKartu(){
     container.innerHTML = daftarKartu.map((kartu, index) => `
         <div class="section">
             <h3>🎉 ${kartu.nama}</h3>
-
+              <p>📱 ${kartu.noCustomer || "-"}</p>
             <img
                 src="${kartu.gambar}"
                 style="width:100%; border-radius:15px; margin-bottom:15px;"
