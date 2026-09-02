@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laporan Respons Customer</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f7f3ff;
+    color: #222;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 620px;
+    margin: auto;
+    background: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.header {
+    background: #e8d7ff;
+    border-radius: 28px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 28px;
+    color: #111;
+}
+
+.header p {
+    margin-top: 8px;
+    color: #666;
+}
+
+.rekap {
+    background: #f1eaff;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 25px;
+}
+
+.rekap h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.rekap-item {
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.laporan {
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+.laporan h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.laporan p {
+    margin: 9px 0;
+    line-height: 1.5;
+}
+
+.hapus {
+    margin-top: 15px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #e53935;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.kosong {
+    text-align: center;
+    padding: 40px 15px;
+    color: #777;
+    font-size: 17px;
+}
+
+.kembali {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 12px;
+    background: #777;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>📊 Laporan Respons Customer</h1>
+        <p>Rekap balasan customer atas penawaran</p>
+    </div>
+
+    <div class="rekap">
+        <h2>📈 Rekap Respons</h2>
+
+        <div class="rekap-item">
+            🟢 Tertarik & mau pengajuan:
+            <strong id="jumlahTertarik">0</strong>
+        </div>
+
+        <div class="rekap-item">
+            🟡 Mau tanya-tanya dulu:
+            <strong id="jumlahTanya">0</strong>
+        </div>
+
+        <div class="rekap-item">
+            🔴 Tidak tertarik:
+            <strong id="jumlahTidak">0</strong>
+        </div>
+    </div>
+
+    <div id="daftarRespons"></div>
+
+    <button class="kembali" onclick="kembali()">
+        🏠 Kembali ke Menu Utama
+    </button>
+
+</div>
+
+<script>
+
+function ambilData() {
+
+   
