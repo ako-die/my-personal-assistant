@@ -332,11 +332,17 @@ function tampilkanKartu(){
             <small>
                 Disimpan: ${new Date(kartu.tanggal).toLocaleString("id-ID")}
             </small>
-     <button
+<button
+    class="back"
+    onclick="kirimKartu(${index})">
+    📤 Kirim Kartu
+</button>
+
+<button
     class="back"
     onclick="hapusKartu(${index})">
     🗑️ Hapus Kartu
-</button>  
+</button>
         </div>
     `).join("");
 }
