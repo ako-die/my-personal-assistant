@@ -266,7 +266,8 @@ function previewGambar(event){
 function simpanKartu(){
 
     const nama = document.getElementById("namaCustomer").value.trim();
-    const ucapan = document.getElementById("isiUcapan").value.trim();
+   const noCustomer = document.getElementById("noCustomer").value.trim();
+  const ucapan = document.getElementById("isiUcapan").value.trim();
     const gambar = document.getElementById("previewImage").src;
 
     if(nama === ""){
@@ -286,6 +287,7 @@ function simpanKartu(){
 
     const data = {
         nama: nama,
+      noCustomer: noCustomer,
         ucapan: ucapan,
         gambar: gambar,
         tanggal: new Date().toISOString()
